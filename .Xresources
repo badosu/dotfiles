@@ -1,0 +1,53 @@
+! Xft settings ---------------------------------------------------------------
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+Xft.lcdfilter:  lcddefault
+
+!Xterm settings
+XTerm*faceName:                         xft:Anonymous Pro:pixelsize=14
+XTerm*background:                       grey13
+XTerm*foreground:                       grey75
+XTerm*cursorColor:                      darkyellow
+XTerm*scrollBar:                        false
+XTerm*utf8:                             2
+XTerm*termName:                         xterm-256color
+! http://invisible-island.net/xterm/xterm.faq.html#tiny_menus
+XTerm.VT100.geometry:                   999x999
+XTerm*saveLines:                        7777
+xterm*borderWidth:                      0
+XTerm*metaSendsEscape:                  true
+XTerm*highlightSelection:               true
+XTerm*trimSelection:                    true
+XTerm*cutNewline:                       false
+XTerm*colorBDMode:                      true
+XTerm*colorBD:                          khaki
+XTerm*charClass: 3:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
+
+!colors
+!oblack
+XTerm*color0:                           #171717
+XTerm*color8:                           #737373
+!red
+XTerm*color1:                           #FF5E5E
+XTerm*color9:                           #FF7878
+!green
+XTerm*color2:                           #9CE82B
+XTerm*color10:                          #9ACD32
+!yellow
+XTerm*color3:                           #F0E68C
+XTerm*color11:                          #EEE8AA
+!blue
+XTerm*color4:                           #008AFF
+XTerm*color12:                          #4F98FF
+!magenta
+XTerm*color5:                           #E88CFF
+XTerm*color13:                          #EDA6FF
+!cyan
+XTerm*color6:                           #87CEFA
+XTerm*color14:                          #B0E2FF
+!white
+XTerm*color7:                           #DCDCCC
+XTerm*color15:                          #FFFFFF
