@@ -103,7 +103,7 @@ UXTerm*color15:                          #FFFFFF
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
 URxvt.scrollBar: off
-URxvt.font: xft:Anonymous Pro:pixelsize=14
+URxvt.font: xft:Anonymous Pro:pixelsize=16
 URxvt*foreground: grey75
 
 !oblack

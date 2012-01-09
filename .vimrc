@@ -12,13 +12,11 @@ if (has("gui_running"))
 	" Colorscheme
 	let g:sienna_style='dark'
 	colorscheme sienna
-
-	" Size of window
-	set lines=40 columns=150
+	" Nice font
+	set guifont=Anonymous\ Pro\ 12
+else
+	colorscheme desert
 endif
-
-" Nice font
-set guifont=Anonymous\ Pro\ 12
 
 " Set linenumbers on
 set number
@@ -63,6 +61,15 @@ let Tlist_Use_Right_Window = 1
 map <F4> :NERDTreeToggle<cr> <C-w>10<
 vmap <F4> <esc>:NERDTreeToggle<cr> <C-w>10<
 imap <F4> <esc>:NERDTreeToggle<cr> <C-w>10<
+map <LEADER>gs  :Gstatus<cr>
+vmap <LEADER>gs :Gstatus<cr>
+imap <LEADER>gs :Gstatus<cr>
+map <LEADER>gd  :Gdiff<cr>
+vmap <LEADER>gd :Gdiff<cr>
+imap <LEADER>gd :Gdiff<cr>
+map <LEADER>gb  :Gblame<cr>
+vmap <LEADER>gb :Gblame<cr>
+imap <LEADER>gb :Gblame<cr>
 
 " Nice complete
 function! Smart_TabComplete()
@@ -83,4 +90,12 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+call pathogen#infect()
+
+function! DBextPostResult(db_type, buf_nr)
+if a:db_type == 'MYSQL'
+set syntax=mysql
+endif
+endfunction
+
+let g:github_token = '********************************'

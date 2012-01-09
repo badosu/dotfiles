@@ -1,0 +1,3 @@
+#!/bin/zsh
+MODKEY=Mod4
+exec feh --bg-fill /usr/share/backgrounds/Mount_Snowdon,_Wales_by_Adam_Vellender.jpg &
