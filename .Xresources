@@ -100,7 +100,7 @@ UXTerm*color15:                          #FFFFFF
 
 !URxvt resources
 !
-URxvt.termName: rxvt
+!URxvt.termName: rxvt
 URxvt.depth: 32
 URxvt.background: rgba:0000/0000/0000/dddd
 URxvt.scrollBar: off

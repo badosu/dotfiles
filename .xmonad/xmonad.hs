@@ -3,11 +3,16 @@ import XMonad.Layout.NoBorders
 import XMonad.Config.Gnome
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig
+
+startup :: X ()
+startup = do
+          spawn "xcompmgr -c" -- Enables compositing
  
 main = xmonad $ gnomeConfig
          { modMask = mod4Mask
          , terminal = "urxvt"
 				 , layoutHook = noBorders $ layoutHook defaultConfig
+         , startupHook = startup
          }
 				 `additionalKeysP`
 					[ ("M-f", spawn "firefox"),
