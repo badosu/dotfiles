@@ -20,6 +20,8 @@ myKeys = [  ("M-f", spawn "firefox"),
 					  ("M-g", spawn "urxvt -e vim"),
 					  ("M-m", spawn "urxvt -e mocp -T transparent-background"),
 					  ("M-s", spawn "mocp -s"),
+					  ("M-S-.", spawn "amixer -c 0 set Master 2dB+"),
+					  ("M-S-,", spawn "amixer -c 0 set Master 2dB-"),
 						("M-<Return>", spawn "urxvt"),
 					  ("C-M1-r", spawn "mocp -r"), 		-- previous
 					  ("C-M1-f", spawn "mocp -f"), 		-- next
