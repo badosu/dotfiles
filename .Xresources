@@ -7,7 +7,7 @@ Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
 !Xterm settings
-XTerm*faceName:                         xft:Anonymous Pro:pixelsize=14
+XTerm*faceName:                         xft:Anonymous Pro:pixelsize=16
 XTerm*background:                       grey13
 XTerm*foreground:                       grey75
 XTerm*cursorColor:                      darkyellow
@@ -104,7 +104,7 @@ UXTerm*color15:                          #FFFFFF
 URxvt.depth: 32
 URxvt.background: rgba:0000/0000/0000/dddd
 URxvt.scrollBar: off
-URxvt.font: xft:Anonymous Pro:pixelsize=16
+URxvt.font: xft:Anonymous Pro:pixelsize=18
 URxvt*foreground: grey75
 
 !oblack

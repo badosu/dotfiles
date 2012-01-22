@@ -17,7 +17,8 @@ main = xmonad $ gnomeConfig
          `additionalKeysP` myKeys
 
 myKeys = [  ("M-f", spawn "firefox"),
-            ("M-g", spawn "urxvt -e vim"),
+            ("M-v", spawn "urxvt -e vim"),
+            ("M-g", spawn "gvim"),
             ("M-m", spawn "urxvt -e mocp -T transparent-background"),
             ("M-s", spawn "mocp -s"),
             ("M-<Return>", spawn "urxvt"),
