@@ -1,30 +1,20 @@
 [user]
-	name = Amadeus Folego
-	email = amadeusfolego@gmail.com
+  name = Amadeus Folego
+  email = amadeusfolego@gmail.com
 [alias]
   ins = log -p --max-count=1
-	sh = !git-sh
-	ci = commit
-	co = checkout
-	b = branch
-	st = status
-	who = shortlog -s --
-	fl = log -p
-	lg = log --oneline --decorate
-	sb = status -sb
-	dw = diff --word-diff
-	who = shortlog -s --
+  lg = log --oneline --decorate
 [branch]
-	autosetuprebase = always
+  autosetuprebase = always
 [color]
-	branch = auto
-	diff = auto
-	status = auto
-	ui = true
+  branch = auto
+  diff = auto
+  status = auto
+  ui = true
 [push]
-	default = current
+  default = current
 [github]
-	user = amadeusfolego
-	token = ********************************
+  user = amadeusfolego
+  token = 565c5a116679230c444562260a5bea80
 [core]
-	excludesfile = /home/amadeus/.gitignore
+  excludesfile = ~/.gitignore
