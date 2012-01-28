@@ -9,7 +9,7 @@ ZSH_THEME="alanpeabody"
 COMPLETION_WAITING_DOTS="true"
 
 # ~/.oh-my-zsh/plugins/*
-plugins=(git gem rvm heroku)
+plugins=()
 
 source $ZSH/oh-my-zsh.sh
 
