@@ -27,6 +27,7 @@ myKeys = [  ("M-f", spawn "firefox"),
             ("C-M1-r", spawn "mocp -r"),     -- previous
             ("C-M1-f", spawn "mocp -f"),     -- next
             ("C-M1-S-p", spawn "mocp -P"),   -- pause
+            ("C-M1-U", spawn "mocp -U"),     -- unpause
             ("C-M1-p", spawn "mocp -p"),     -- play
             ("C-M1-x", spawn "mocp -x")      -- kill
           ]
