@@ -20,4 +20,13 @@ export PATH=/home/amadeus/.rvm/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 # aliases
-alias gs="git status"
+alias g="git status"
+alias gg="gitg"
+alias ga="git add"
+alias gp="git push"
+alias gd="git diff"
+alias gc="git commit"
+alias gs="git log -p -1 --pretty=oneline --decorate"
+alias gl="git log --graph --pretty=oneline --decorate"
+
+alias irc="/home/amadeus/scripts/irssi-connect.sh"
