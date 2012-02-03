@@ -20,14 +20,14 @@ myKeys = [  ("M-f", spawn "firefox"),
             ("M-v", spawn "urxvt -e vim"),
             ("M-g", spawn "gvim"),
             ("M-m", spawn "urxvt -e mocp -T transparent-background"),
-            ("M-s", spawn "mocp -s"),
             ("M-<Return>", spawn "urxvt"),
             ("M-S-.", spawn "amixer -c 0 set Master 2dB+"), -- raise volume
             ("M-S-,", spawn "amixer -c 0 set Master 2dB-"), -- lower volume
-            ("C-M1-r", spawn "mocp -r"),     -- previous
-            ("C-M1-f", spawn "mocp -f"),     -- next
-            ("C-M1-S-p", spawn "mocp -P"),   -- pause
-            ("C-M1-S-u", spawn "mocp -U"),     -- unpause
             ("C-M1-p", spawn "mocp -p"),     -- play
+            ("C-M1-s", spawn "mocp -s"),     -- stop
+            ("C-M1-f", spawn "mocp -f"),     -- next
+            ("C-M1-r", spawn "mocp -r"),     -- previous
+            ("C-M1-S-p", spawn "mocp -P"),   -- pause
+            ("C-M1-S-u", spawn "mocp -U"),   -- unpause
             ("C-M1-x", spawn "mocp -x")      -- kill
           ]
