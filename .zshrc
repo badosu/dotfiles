@@ -9,7 +9,7 @@ ZSH_THEME="alanpeabody"
 COMPLETION_WAITING_DOTS="true"
 
 # ~/.oh-my-zsh/plugins/*
-plugins=()
+plugins=(rspec git gem)
 
 source $ZSH/oh-my-zsh.sh
 
