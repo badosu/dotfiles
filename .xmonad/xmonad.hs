@@ -7,6 +7,7 @@ import XMonad.Util.EZConfig
 startup :: X ()
 startup = do
           spawn "xcompmgr -c" -- Enables compositing
+          spawn "devilspie -a" -- Monitors apps
 
 main = xmonad $ gnomeConfig
          { modMask = mod4Mask
