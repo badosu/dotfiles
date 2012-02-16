@@ -9,7 +9,7 @@ ZSH_THEME="alanpeabody"
 COMPLETION_WAITING_DOTS="true"
 
 # ~/.oh-my-zsh/plugins/*
-plugins=(rspec git gem)
+plugins=(rspec git gem rvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -30,3 +30,7 @@ alias gs="git log -p -1 --pretty=oneline --decorate"
 alias gl="git log --graph --pretty=oneline --decorate"
 
 alias irc="/home/amadeus/scripts/irssi-connect.sh"
+
+alias be="bundle exec"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
