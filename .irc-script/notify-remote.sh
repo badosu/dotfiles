@@ -3,7 +3,7 @@
 
 # XXX do not notify if notification source has focus
 
-delay="4000"
+delay="12000"
 
 read line
 summary="$line"
