@@ -105,6 +105,11 @@ URxvt.scrollBar: off
 URxvt.font: xft:Anonymous Pro:pixelsize=18
 URxvt*foreground: grey75
 
+URxvt.perl-ext-common:  default,matcher
+URxvt.urlLauncher:      /usr/bin/firefox
+URxvt.matcher.button:   1
+URxvt.keysym.C-Return:    perl:matcher
+
 !oblack
 URxvt*color0:                           #171717
 URxvt*color8:                           #737373
