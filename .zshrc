@@ -3,13 +3,13 @@ ZSH=$HOME/.oh-my-zsh
 
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme
-ZSH_THEME="alanpeabody"
+ZSH_THEME="gallois"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
 # ~/.oh-my-zsh/plugins/*
-plugins=(rspec git gem rvm)
+plugins=(git gem rvm vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -29,8 +29,10 @@ alias gc="git commit"
 alias gs="git log -p -1 --pretty=oneline --decorate"
 alias gl="git log --graph --pretty=oneline --decorate"
 
-alias irc="/home/amadeus/scripts/irssi-connect.sh"
+alias irc="$HOME/.irc-script/irssi-connect.sh"
 
 alias be="bundle exec"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+set -o vi
