@@ -23,7 +23,11 @@ myManageHook = composeAll [ appName =? "Synapse" --> doFloat,
                             isFullscreen --> doFullFloat
                           ]
 
-myLayoutHook = avoidStruts $ mkToggle (single REFLECTX) $ noBorders $ layoutHook desktopConfig
+myLayoutHook = avoidStruts $
+               mkToggle (single REFLECTX) $
+               mkToggle (single REFLECTY) $
+               noBorders $
+               layoutHook desktopConfig
 
 main = xmonad $ desktopConfig {
       manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig,
@@ -51,6 +55,8 @@ myKeys = [  ("M-f", spawn "firefox"),
             ("M-<Return>", spawn "urxvt -name Terminal"),
             ("M-b", sendMessage ToggleStruts),
             ("M-S-t", withFocused $ windows . W.sink),
-            ("M-S-h", sendMessage $ Toggle REFLECTX),
-            ("M-S-l", sendMessage $ Toggle REFLECTX)
+            ("M-C-k", sendMessage $ Toggle REFLECTY),
+            ("M-C-j", sendMessage $ Toggle REFLECTY),
+            ("M-C-h", sendMessage $ Toggle REFLECTX),
+            ("M-C-l", sendMessage $ Toggle REFLECTX)
           ]
