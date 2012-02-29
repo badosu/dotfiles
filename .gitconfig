@@ -15,6 +15,6 @@
   default = current
 [github]
   user = amadeusfolego
-  token = 565c5a116679230c444562260a5bea80
+  token = ********************************
 [core]
   excludesfile = ~/.gitignore
