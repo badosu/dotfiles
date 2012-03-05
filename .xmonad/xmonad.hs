@@ -1,12 +1,12 @@
 import XMonad
-import XMonad.Config.Desktop
-import XMonad.Util.EZConfig
-import XMonad.Layout.NoBorders
 import XMonad.Actions.WindowGo
+import XMonad.Config.Desktop
 import XMonad.Hooks.ManageHelpers
-import XMonad.Layout.Reflect
-import XMonad.Layout.MultiToggle
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Reflect
+import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
 
 startup :: X ()
@@ -17,6 +17,7 @@ startup = do
 insistentQuery name = appName =? name <||> title =? name <||> className =? name
 
 myManageHook = composeAll [ appName =? "Synapse" --> doFloat,
+                            className =? "Gnome-panel" --> doIgnore,
                             className =? "Unity-2d-panel" --> doIgnore,
                             className =? "Unity-2d-launcher" --> doFloat,
                             insistentQuery "xfce4-notifyd" --> doIgnore,
@@ -39,10 +40,14 @@ main = xmonad $ desktopConfig {
     `additionalKeysP` myKeys
 
 myKeys = [  ("M-f", spawn "firefox"),
+            ("M-S-q", spawn "gnome-session-quit"),
+            ("M-S-r", spawn "xmonad --recompile && xmonad --restart"),
             ("M-v", spawn "urxvt -e vim"),
+            ("M-v", spawn "urxvt -e vim"),
+            ("M-i", spawn "urxvt -name IRC -e ./.irc-script/irssi-connect.sh"),
             ("M-g", spawn "gvim"),
             ("M-p", spawn "synapse"),
-            ("M-m", spawn "urxvt -e mocp -T transparent-background"),
+            ("M-m", spawn "urxvt -name Mocp -e mocp -T transparent-background"),
             ("M-S-.", spawn "amixer -c 0 set Master 2dB+"), -- raise volume
             ("M-S-,", spawn "amixer -c 0 set Master 2dB-"), -- lower volume
             ("C-M1-p", spawn "mocp -p"),     -- play
