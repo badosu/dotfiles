@@ -71,7 +71,6 @@ UXTerm*color15:                          #FFFFFF
 
 !URxvt resources
 !
-!URxvt.termName: rxvt
 URxvt.depth: 32
 URxvt.scrollBar: off
 URxvt.font: xft:Anonymous Pro:pixelsize=18
