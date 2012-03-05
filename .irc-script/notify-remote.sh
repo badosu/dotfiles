@@ -12,5 +12,5 @@ msg="$line"
 read line
 
 if [ "$line" = "" ] && [ "$summary" != "" ]; then
-    [ -x "$(which notify-send)" ] && notify-send -i notification-message-im -t "$delay" -- "$summary" "$msg"
+    [ -x "$(which notify-send)" ] && notify-send --icon=stock_about -t "$delay" -- "$summary" "$msg"
 fi
