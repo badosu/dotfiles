@@ -33,7 +33,7 @@ sub is_port_owner {
         my $uid = $splitted[8];
 
         return 1 if $local eq $wanted and $uid == $<;
-    }   
+    }
     close HANDLE;
     return 0;
 }
