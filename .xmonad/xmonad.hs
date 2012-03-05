@@ -20,6 +20,7 @@ myManageHook = composeAll [ appName =? "Synapse" --> doFloat,
                             className =? "Gnome-panel" --> doIgnore,
                             className =? "Unity-2d-panel" --> doIgnore,
                             className =? "Unity-2d-launcher" --> doFloat,
+                            className =? "Gwibber" --> doFloat,
                             insistentQuery "xfce4-notifyd" --> doIgnore,
                             isFullscreen --> doFullFloat
                           ]
