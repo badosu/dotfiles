@@ -34,5 +34,6 @@ alias irc="$HOME/.irc-script/irssi-connect.sh"
 alias be="bundle exec"
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:$HOME/.cabal/bin # Adds Cabal bin
 
 set -o vi
