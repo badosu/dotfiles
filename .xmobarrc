@@ -15,5 +15,5 @@ Config { font = "xft:Anonymous Pro Bold:pixelsize=12"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | %eth0% - %wlan0% | <fc=#ee9a00>%date%</fc>| %SBSP%"
+       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | %eth0% - %wlan0% | <fc=#ee9a00>%date%</fc> | %SBSP%"
 }
