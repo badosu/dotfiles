@@ -1,11 +1,11 @@
-Config { font = "xft:Sans-9:bold"
+Config { font = "xft:Anonymous Pro Bold:pixelsize=12"
        , bgColor = "black"
        , fgColor = "grey"
        , position = Top
        , lowerOnStart = False
        , commands = [ Run Weather "SBSP" ["-t","<station>: <tempC>C","-L","16","-H","27","--normal","gray","--high","red","--low","lightblue"] 36000
-                    , Run Network "eth1" ["-L","0","-H","220","--normal","gray","--high","red"] 10
-                    , Run Network "wlan2" ["-L","0","-H","220","--normal","gray","--high","red"] 10
+                    , Run Network "eth0" ["-L","0","-H","220","--normal","gray","--high","red"] 10
+                    , Run Network "wlan0" ["-L","0","-H","220","--normal","gray","--high","red"] 10
                     , Run Cpu ["-L","3","-H","50","--normal","gray","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
@@ -15,5 +15,5 @@ Config { font = "xft:Sans-9:bold"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | %eth1% - %wlan2% | <fc=#ee9a00>%date%</fc>| %SBSP%"
+       , template = "%StdinReader% }{ %cpu% | %memory% * %swap% | %eth0% - %wlan0% | <fc=#ee9a00>%date%</fc>| %SBSP%"
 }
