@@ -9,6 +9,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Reflect
 import XMonad.Util.EZConfig
 import XMonad.Util.Run(spawnPipe)
+import XMonad.Actions.CycleWS
 import System.IO
 import qualified XMonad.StackSet as W
 
@@ -20,11 +21,11 @@ startup = do
 insistentQuery name = appName =? name <||> title =? name <||> className =? name
 
 myManageHook = composeAll [ appName =? "Synapse" --> doFloat,
+                            className =? "Do" --> doFloat,
                             className =? "Gnome-panel" --> doIgnore,
                             appName =? "Skype" --> doFloat,
                             className =? "Unity-2d-panel" --> doIgnore,
                             className =? "xmobar" --> doIgnore,
-                            className =? "Do" --> doFloat,
                             className =? "Unity-2d-launcher" --> doFloat,
                             className =? "Gwibber" --> doFloat,
                             insistentQuery "xfce4-notifyd" --> doIgnore,
@@ -41,6 +42,10 @@ myKeys = [ ("M-f", spawn "firefox"),
            ("M-S-q", spawn "gnome-session-quit"),
            ("M-S-r", spawn "xmonad --recompile && xmonad --restart"),
            ("M-v", spawn "urxvt -e vim"),
+           ("M-S-j", moveTo Prev NonEmptyWS),
+           ("M-S-k", moveTo Next NonEmptyWS),
+           ("M-S-h", moveTo Prev EmptyWS),
+           ("M-S-l", moveTo Next EmptyWS),
            ("M-t", spawn "thunderbird"),
            ("M-h", spawn "nautilus"),
            ("M-v", spawn "urxvt -e vim"),
@@ -59,11 +64,7 @@ myKeys = [ ("M-f", spawn "firefox"),
            ("C-M1-x", spawn "mocp -x"),      -- kill
            ("M-<Return>", spawn "urxvt -name Terminal"),
            ("M-b", sendMessage ToggleStruts),
-           ("M-S-t", withFocused $ windows . W.sink),
-           ("M-C-k", sendMessage $ Toggle REFLECTY),
-           ("M-C-j", sendMessage $ Toggle REFLECTY),
-           ("M-C-h", sendMessage $ Toggle REFLECTX),
-           ("M-C-l", sendMessage $ Toggle REFLECTX)
+           ("M-S-t", withFocused $ windows . W.sink)
           ]
 
 myLogHook h = dynamicLogWithPP $ xmobarPP
