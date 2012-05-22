@@ -13,11 +13,7 @@ plugins=(git gem rvm vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-export PATH=/home/amadeus/.rvm/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-
-# rvm
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+source /etc/profile.d/rvm.sh
 
 # aliases
 alias g="git status"
@@ -26,6 +22,8 @@ alias ga="git add"
 alias gp="git push"
 alias gd="git diff"
 alias gc="git commit"
+alias gcl="git clone"
+alias gpu="git pull"
 alias gs="git log -p -1 --pretty=oneline --decorate"
 alias gl="git log --graph --pretty=oneline --decorate"
 
@@ -33,7 +31,17 @@ alias irc="$HOME/.irc-script/irssi-connect.sh"
 
 alias be="bundle exec"
 
+alias ack="ack-grep"
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:$HOME/.cabal/bin # Adds Cabal bin
 
 set -o vi
+
+# Search backwards and forwards with a pattern
+bindkey -M vicmd '/' history-incremental-pattern-search-forward
+bindkey -M vicmd '?' history-incremental-pattern-search-backward
+#
+# # set up for insert mode too
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+bindkey -M viins '^F' history-incremental-pattern-search-forward

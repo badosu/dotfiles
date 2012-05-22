@@ -16,20 +16,19 @@ import qualified XMonad.StackSet as W
 startup :: X ()
 startup = do
           spawn "xcompmgr -c" -- Enables compositing
-          spawn "devilspie -a" -- Monitors apps
 
 insistentQuery name = appName =? name <||> title =? name <||> className =? name
 
-myManageHook = composeAll [ appName =? "Synapse" --> doFloat,
-                            className =? "Do" --> doFloat,
-                            className =? "Gnome-panel" --> doIgnore,
+myManageHook = composeAll [
                             appName =? "Skype" --> doFloat,
-                            className =? "Unity-2d-panel" --> doIgnore,
                             className =? "xmobar" --> doIgnore,
-                            className =? "Unity-2d-launcher" --> doFloat,
-                            className =? "Gwibber" --> doFloat,
-                            insistentQuery "xfce4-notifyd" --> doIgnore,
-                            isFullscreen --> doFullFloat
+                            isFullscreen --> doFullFloat,
+                            className =? "Do" --> doIgnore
+                            -- className =? "Unity-2d-launcher" --> doFloat,
+                            -- insistentQuery "xfce4-notifyd" --> doIgnore,
+                            -- appName =? "Synapse" --> doFloat,
+                            -- className =? "Gnome-panel" --> doIgnore,
+                            -- className =? "Unity-2d-panel" --> doIgnore,
                           ]
 
 myLayoutHook = avoidStruts $
@@ -42,10 +41,10 @@ myKeys = [ ("M-f", spawn "firefox"),
            ("M-S-q", spawn "gnome-session-quit"),
            ("M-S-r", spawn "xmonad --recompile && xmonad --restart"),
            ("M-v", spawn "urxvt -e vim"),
-           ("M-S-j", moveTo Prev NonEmptyWS),
-           ("M-S-k", moveTo Next NonEmptyWS),
            ("M-S-h", moveTo Prev EmptyWS),
            ("M-S-l", moveTo Next EmptyWS),
+           ("M-S-j", moveTo Prev NonEmptyWS),
+           ("M-S-k", moveTo Next NonEmptyWS),
            ("M-t", spawn "thunderbird"),
            ("M-h", spawn "nautilus"),
            ("M-v", spawn "urxvt -e vim"),
