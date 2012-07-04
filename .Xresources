@@ -1,4 +1,4 @@
-Xft.dpi:        96
+Xft.dpi:        128
 Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
@@ -73,10 +73,11 @@ UXTerm*color15:                          #FFFFFF
 !
 URxvt.depth: 32
 URxvt.scrollBar: off
-URxvt.font: xft:Anonymous Pro:pixelsize=18
+URxvt.font: xft:Anonymous Pro:pixelsize=20
 
 URxvt.perl-ext: default,matcher
-URxvt.urlLauncher: /usr/bin/firefox
+URxvt.urlLauncher: uzbl
+URxvt.colorUL: #86a2be
 URxvt.matcher.button: 1
 URxvt.keysym.M1-S-Return: perl:matcher
 !URxvt.keysym.M-u: perl:url-select:select_next
@@ -89,7 +90,7 @@ URxvt.keysym.M1-S-Return: perl:matcher
 
 
 ! Tsveta
-URxvt.foreground:   #d3d3d3
+URxvt.foreground:   #00FF00
 URxvt.background: rgba:0000/0000/0000/cccc
 ! Cherniy
 URxvt.color0:       #2e3436
