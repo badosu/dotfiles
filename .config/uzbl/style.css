@@ -6,8 +6,8 @@
     padding:            3px            !important;
 
     color:              #ccc   !important;
-    font-size:          9px    !important;
-    line-height:        9px    !important;
+    font-size:          14px    !important;
+    line-height:        16px    !important;
     font-weight:        bold   !important;
     font-variant:       normal !important;
     text-decoration:    none   !important;
@@ -21,8 +21,8 @@
 
 /* we can have different colours for different types of hints! */
 #uzbl_link_hints.new-window > span {
-    background-color: #ffff00 !important;
-    color:            black   !important;
+/*    background-color: #ffff00 !important; */
+/*    color:            black   !important; */
 }
 
 .uzbl-follow-text-match {
