@@ -1,73 +1,11 @@
+Xcursor.theme: oxy-white
+
 Xft.dpi:        128
 Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
-
-!Xterm settings
-XTerm*faceName:                         xft:Anonymous Pro:pixelsize=16
-XTerm*background:                       grey13
-XTerm*foreground:                       grey75
-XTerm*cursorColor:                      darkyellow
-XTerm*scrollBar:                        false
-XTerm*utf8:                             1
-XTerm*termName:                         xterm-256color
-XTerm.VT100.geometry:                   999x999
-XTerm*saveLines:                        7777
-XTerm*borderWidth:                      0
-XTerm*metaSendsEscape:                  true
-XTerm*highlightSelection:               true
-XTerm*trimSelection:                    true
-XTerm*cutNewline:                       false
-XTerm*colorBDMode:                      true
-XTerm*colorBD:                          khaki
-XTerm*charClass: 3:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
-
-!Xterm settings
-UXTerm*faceName:                         xft:Anonymous Pro:pixelsize=16
-UXTerm*background:                       grey13
-UXTerm*foreground:                       grey75
-UXTerm*cursorColor:                      darkyellow
-UXTerm*scrollBar:                        false
-UXTerm*utf8:                             1
-UXTerm*termName:                         xterm-256color
-UXTerm.VT100.geometry:                   999x999
-UXTerm*saveLines:                        7777
-UXTerm*borderWidth:                      0
-UXTerm*metaSendsEscape:                  true
-UXTerm*highlightSelection:               true
-UXTerm*trimSelection:                    true
-UXTerm*cutNewline:                       false
-UXTerm*colorBDMode:                      true
-UXTerm*colorBD:                          khaki
-UXTerm*charClass: 3:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48,35:48,58:48,63:48,61:48,44:48,38:48,59:48
-
-!colors
-!oblack
-UXTerm*color0:                           #171717
-UXTerm*color8:                           #737373
-!red
-UXTerm*color1:                           #FF5E5E
-UXTerm*color9:                           #FF7878
-!green
-UXTerm*color2:                           #9CE82B
-UXTerm*color10:                          #9ACD32
-!yellow
-UXTerm*color3:                           #F0E68C
-UXTerm*color11:                          #EEE8AA
-!blue
-UXTerm*color4:                           #008AFF
-UXTerm*color12:                          #4F98FF
-!magenta
-UXTerm*color5:                           #E88CFF
-UXTerm*color13:                          #EDA6FF
-!cyan
-UXTerm*color6:                           #87CEFA
-UXTerm*color14:                          #B0E2FF
-!white
-UXTerm*color7:                           #DCDCCC
-UXTerm*color15:                          #FFFFFF
 
 !URxvt resources
 !
