@@ -7,42 +7,52 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Reflect
+import XMonad.Layout.Spacing
 import XMonad.Util.EZConfig
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Actions.CycleWS
 import System.IO
+import XMonad.Layout.PerWorkspace
 import qualified XMonad.StackSet as W
 
 startup :: X ()
 startup = do
+          spawn "unclutter" -- Hide mouse when unnecessary
           spawn "xcompmgr -c" -- Enables compositing
+          spawn "xsetroot -cursor_name left_ptr" -- Use decent cursor
+          spawn "killall trayer; trayer --edge top --align right --expand true --width 5 --transparent true --alpha 0 --tint 0x000000 --height 18"
 
 insistentQuery name = appName =? name <||> title =? name <||> className =? name
 
+myWorkspaces = ["1:main","2:alt","3:web","4:email","5:chat","6:music","7","8","9"]
+
 myManageHook = composeAll [
+                            className =? "File Operation Progress" --> doFloat,
+                            resource =? "desktop_window" --> doIgnore,
                             appName =? "Skype" --> doFloat,
-                            className =? "xmobar" --> doIgnore,
-                            isFullscreen --> doFullFloat,
                             className =? "Do" --> doIgnore,
-                            className =? "Unity-2d-panel" --> doIgnore,
-                            className =? "Unity-2d-launcher" --> doFloat,
-                            appName =? "unity-2d-shell" --> doIgnore
+                            className =? "xmobar" --> doIgnore,
+                            className =? "trayer" --> doIgnore
                           ]
 
-myLayoutHook = avoidStruts $
-               mkToggle (single REFLECTX) $
-               mkToggle (single REFLECTY) $
-               noBorders $
-               layoutHook desktopConfig
 
-myKeys = [ ("M-f", spawn "firefox"),
-           ("M-u", spawn "uzbl-tabbed"),
+myLayoutHook = avoidStruts $
+               spacing 3 $
+               smartBorders $
+               layoutHook desktopConfig
+                 where
+                   noBordersLayout = noBorders $ spacing 0 $ layoutHook desktopConfig
+               --onWorkspace "5:chat" noBordersLayout $
+
+myKeys = [ ("M-u", spawn "firefox"),
+           ("M-f", spawn "uzbl-tabbed"),
            ("M-S-q", spawn "gnome-session-quit"),
            ("M-S-r", spawn "xmonad --recompile && xmonad --restart"),
            ("M-v", spawn "urxvt -e vim"),
            ("M-t", spawn "thunderbird"),
            ("M-n", spawn "nautilus"),
            ("M-S-m", spawn "urxvt -e ncmpcpp"),
+           ("M-a", spawn "urxvt -e alsamixer"),
            ("M-v", spawn "urxvt -e vim"),
            ("M-i", spawn "urxvt -name IRC -e ./.irc-script/irssi-connect.sh"),
            ("M-g", spawn "gvim"),
@@ -59,18 +69,23 @@ myKeys = [ ("M-f", spawn "firefox"),
 myLogHook h = dynamicLogWithPP $ xmobarPP
               {
                 ppTitle = xmobarColor "green" "" . shorten 50,
-                ppOutput = hPutStrLn h
+                ppOutput = hPutStrLn h,
+                ppLayout = const ""
               }
 
 main = do
       xmproc <- spawnPipe "xmobar"
       xmonad $ desktopConfig {
+        normalBorderColor = "#000",
+        focusedBorderColor = "#68e862",
+        borderWidth = 1,
         manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig,
+        terminal = "urxvt",
+        modMask = mod4Mask,
+        startupHook = startup,
         layoutHook = myLayoutHook,
         logHook = myLogHook xmproc,
-        startupHook = startup,
-        terminal = "urxvt",
-        modMask = mod4Mask
+        workspaces = myWorkspaces
       } `additionalKeysP` myKeys
 
 -- STORED myKeys
@@ -78,17 +93,10 @@ main = do
   --("M-S-l", moveTo Next NonEmptyWS),
   --("M-S-j", moveTo Prev EmptyWS),
   --("M-S-k", moveTo Next EmptyWS),
-  --("M-m", spawn "urxvt -name Mocp -e mocp -T transparent-background"),
-  --("M-S-.", spawn "amixer -c 0 set Master 2dB+"), -- raise volume
-  --("M-S-,", spawn "amixer -c 0 set Master 2dB-"), -- lower volume
-  --("C-M1-p", spawn "mocp -p"),     -- play
-  --("C-M1-s", spawn "mocp -s"),     -- stop
-  --("C-M1-f", spawn "mocp -f"),     -- next
-  --("C-M1-r", spawn "mocp -r"),     -- previous
-  --("C-M1-S-p", spawn "mocp -P"),   -- pause
-  --("C-M1-S-u", spawn "mocp -U"),   -- unpause
-  --("C-M1-x", spawn "mocp -x"),      -- kill
 -- STORED myManageHook
   -- insistentQuery "xfce4-notifyd" --> doIgnore,
   -- appName =? "Synapse" --> doFloat,
   -- className =? "Gnome-panel" --> doIgnore,
+  -- className =? "Unity-2d-panel" --> doIgnore,
+  -- className =? "Unity-2d-launcher" --> doFloat,
+  -- appName =? "unity-2d-shell" --> doIgnore
