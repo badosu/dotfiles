@@ -1,0 +1,18 @@
+set editor = "vim"
+auto_view text/html text/enriched application/x-gunzip application/x-tar-gz
+
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set move = no
+set include
+set sort = 'threads'
+set auto_tag = yes
+hdr_order Date From To Cc
+
+source ~/.mutt/bindings.muttrc
+source ~/.mutt/theme.muttrc
+source ~/.mutt/accounts.muttrc

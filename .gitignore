@@ -3,3 +3,5 @@
 *.aux
 **doc/*.log
 tags
+.mutt/*.account
+.mutt/cache
