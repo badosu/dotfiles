@@ -214,8 +214,8 @@ set ebind     = @mode_bind global,-insert
 @ebind <Down>            = event HISTORY_NEXT
 @ebind <Ctrl>r<search:>_ = event HISTORY_SEARCH %s
 # Keycmd injection/append examples.
-#@ebind  <Ctrl>su = event INJECT_KEYCMD \@uri
-#@ebind  <Ctrl>st = event INJECT_KEYCMD \@title
+@ebind  <Ctrl>su = event INJECT_KEYCMD \@uri
+@ebind  <Ctrl>st = event INJECT_KEYCMD \@title
 #@ebind  <Ctrl>du = event APPEND_KEYCMD \@uri
 #@ebind  <Ctrl>dt = event APPEND_KEYCMD \@title
 
@@ -321,8 +321,8 @@ set ebind     = @mode_bind global,-insert
 
 # Use socat to directly inject commands into uzbl-core and view events
 # raised by uzbl-core:
-@cbind  <Ctrl><Mod1>t  = sh 'xterm -e "socat unix-connect:\"$UZBL_SOCKET\" -"'
-#@cbind  <Ctrl><Mod1>t  = sh 'urxvt -e socat unix-connect:"$UZBL_SOCKET" -'
+#@cbind  <Ctrl><Mod1>t  = sh 'xterm -e "socat unix-connect:\"$UZBL_SOCKET\" -"'
+@cbind  <Ctrl><Mod1>t  = sh 'urxvt -e socat unix-connect:"$UZBL_SOCKET" -'
 
 # Uri opening prompts
 @cbind  o<uri:>_       = uri %s
