@@ -1,0 +1,19 @@
+text/html;                      w3m %s; nametemplate=%s.html
+text/html;                      w3m -dump %s; nametemplate=%s.html; copiousoutput
+image/*;                        eog %s
+application/x-gunzip;           gzcat; copiousoutput
+application/x-tar-gz;           gunzip -c %s | tar -tf - ; copiousoutput
+application/postscript;         ps2ascii %s; copiousoutput
+application/pdf;                evince %s
+
+application/msword;             libreoffice %s
+application/vnd.msword;         libreoffice %s
+application/excel;              libreoffice %s
+application/msexcel;            libreoffice %s
+application/vnd.ms-excel;       libreoffice %s
+application/x-excel;            libreoffice %s
+application/x-msexcel;          libreoffice %s
+application/ms-Excel;           libreoffice %s
+application/vnd.ms-powerpoint;  libreoffice %s
+application/x-mspowerpoint;     libreoffice %s
+application/ppt;                libreoffice %s
