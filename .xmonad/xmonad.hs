@@ -50,6 +50,7 @@ myStartupHook = do
 myManageHook = composeAll [
                  className =? "File Operation Progress" --> doFloat,
                  appName   =? "Skype"                   --> doFloat,
+                 appName   =? "alsamixer"               --> doFloat,
                  resource  =? "desktop_window"          --> doIgnore,
                  className =? "Do"                      --> doIgnore,
                  className =? "xmobar"                  --> doIgnore,
@@ -65,7 +66,7 @@ myKeys = [
            ("M-t", spawn "thunderbird"),
            ("M-n", spawn "nautilus"),
            ("M-s", spawn "urxvt -e ncmpcpp"),
-           ("M-a", spawn "urxvt -e alsamixer"),
+           ("M-a", spawn "urxvt -name alsamixer -geometry 80x24 -e alsamixer" ),
            ("M-v", spawn "urxvt -e vim"),
            ("M-i", spawn "urxvt -name IRC -e ./.irc-script/irssi-connect.sh"),
            ("M-g", spawn "gvim"),
