@@ -7,25 +7,23 @@ Xft.hinting:    true
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
-!URxvt resources
-!
 URxvt.depth: 32
 URxvt.scrollBar: off
 URxvt.font: xft:Anonymous Pro:pixelsize=20
+URxvt.colorUL: #86a2be
 
 URxvt.perl-ext: default,matcher,url-select,clipboard
-URxvt.urlLauncher: uzbl-tabbed
-URxvt.colorUL: #86a2be
 URxvt.matcher.button: 1
+URxvt.urlLauncher: uzbl-tabbed
+URxvt.copyCommand: xclip -i -selection clipboard
+URxvt.pasteCommand: xclip -o -selection clipboard
+
 URxvt.keysym.M1-Return: perl:matcher
-URxvt.keysym.M1-u: perl:url-select:select_next
+URxvt.keysym.M1-f: perl:url-select:select_next
 URxvt.keysym.M1-c: perl:clipboard:copy
 URxvt.keysym.M1-v: perl:clipboard:paste
 URxvt.keysym.M1-S-v: perl:clipboard:paste_escaped
-URxvt.copyCommand: xclip -i -selection clipboard
-URxvt.pasteCommand: xclip -o -selection clipboard
 !URxvt.keysym.M1-S-a: perl:keyboard-select:activate
-
 
 ! Tsveta
 URxvt.foreground:   #00FF00
