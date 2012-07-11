@@ -1,7 +1,7 @@
 Config { font = "xft:Anonymous Pro Bold:pixelsize=14"
        , bgColor = "black"
        , fgColor = "grey"
-       , position = Static { xpos = 0 , ypos = 0, width = 1830, height = 18 }
+       , position = Static { xpos = 0 , ypos = 0, width = 1825, height = 18 }
        , lowerOnStart = False
        , commands = [ Run Network "eth0" ["-L","0","-H","1000","--normal","gray","--high","red"] 10
                     , Run Network "wlan0" ["-L","0","-H","1000","--normal","gray","--high","red"] 10
