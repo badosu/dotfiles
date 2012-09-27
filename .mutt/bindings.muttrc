@@ -52,9 +52,6 @@ macro index,pager gm <sync-mailbox>
 ################pager           text viewer
 ################ Call abookadd {{{
 # macro pager a "C<$TMP_FILE>\n\n!<abookadd.pl>\n" "create an alias from a message sender"
-macro index a "C$HOME/temp/mutt4abook\n\n!abookadd.pl\n" "create an alias from a message sender"
-macro pager a "C$HOME/temp/mutt4abook\n\n!abookadd.pl\n" "create an alias from a message sender"
-# }}}
 ################ Jumpings {{{
 ## Jumping to the next mail that is still unread.
 ## Even though I use both New and Old mails
@@ -92,7 +89,7 @@ macro pager a "C$HOME/temp/mutt4abook\n\n!abookadd.pl\n" "create an alias from a
 #  bind index <home>     first-message    # error with mutt-0.89.1
 #  bind index <end>       last-message    # error with mutt-0.89.1
 
-#  bind index \Cg        group-reply # \Cg --> "group-reply"
+  bind index gr        group-reply # \Cg --> "group-reply"
 #
   bind index gg         first-entry #  g  was "group-reply"
   bind index G          last-entry    # error with mutt-0.89.1
