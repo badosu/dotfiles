@@ -1,5 +1,5 @@
-text/html;                      w3m %s; nametemplate=%s.html
-text/html;                      w3m -dump %s; nametemplate=%s.html; copiousoutput
+text/html;                      w3m -I %{charset} %s; nametemplate=%s.html
+text/html;                      w3m -I %{charset} -dump %s; nametemplate=%s.html; copiousoutput
 image/*;                        eog %s
 application/x-gunzip;           gzcat; copiousoutput
 application/x-tar-gz;           gunzip -c %s | tar -tf - ; copiousoutput
