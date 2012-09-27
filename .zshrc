@@ -28,7 +28,7 @@ export VISUAL=vi
 export EDITOR=vi
 
 # aliases
-alias irc="$HOME/.irc-script/irssi-connect.sh"
+alias irc="irssi-connect.sh"
 alias ack="ack-grep"
 alias rm="rm -f"
 alias be="bundle exec"

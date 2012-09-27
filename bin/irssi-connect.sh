@@ -8,8 +8,8 @@ else
     port=22
 fi
 
-host="badosu@listechi.com"
-notify="$HOME/.irc-script/notify-remote.sh"
+host="badosu@badosu.com"
+notify="$HOME/bin/notify-remote.sh"
 
 set -e
 
