@@ -29,3 +29,5 @@ set assumed_charset="iso-8859-1"
 set query_command = "abook --mutt-query '%s'"
 macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
 macro index,pager a "<pipe-message>abook --add-email<return>" "add the sender address to abook"
+
+set display_filter="sed -e '/\\[-- Autoview using.*--\\]/d'"
