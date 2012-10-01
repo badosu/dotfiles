@@ -12,6 +12,20 @@
 ## will be used to switch between columns.
 ##
 #
+key_page_up = 339, 'U'
+#
+key_page_down = 338, 'D'
+#
+key_prev_column = 260, 'h'
+#
+key_next_column = 261, 'l'
+#
+key_toggle_auto_center = 'O'
+#
+key_lyrics = 'L'
+#
+key_toggle_lyrics_db = ';'
+#
 #key_up = 259 'k'
 #
 #key_down = 258 'j'
@@ -23,10 +37,6 @@
 #key_up_artist = '{'
 #
 #key_down_artist = '}'
-#
-#key_page_up = 339
-#
-#key_page_down = 338
 #
 #key_home = 262
 #
@@ -41,10 +51,6 @@
 #key_volume_up = 261 '+'
 #
 #key_volume_down = 260 '-'
-#
-key_prev_column = 260, 'h'
-#
-key_next_column = 261, 'l'
 #
 #key_toggle_space_mode = 't'
 #
@@ -132,8 +138,6 @@ key_next_column = 261, 'l'
 #
 #key_artist_info = 'I'
 #
-key_lyrics = 'L'
-#
 #key_reverse_selection = 'v'
 #
 #key_deselect_all = 'V'
@@ -162,13 +166,9 @@ key_lyrics = 'L'
 #
 #key_go_to_now_playing = 'o'
 #
-#key_toggle_auto_center = 'U'
-#
 #key_toggle_display_mode = 'p'
 #
 #key_toggle_separators_in_playlist = '!'
-#
-key_toggle_lyrics_db = ';'
 #
 #key_go_to_containing_directory = 'G'
 #
