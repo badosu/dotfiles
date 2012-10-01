@@ -4,4 +4,5 @@
 **doc/*.log
 tags
 .mutt/*.account
+.mutt/*.signature
 .mutt/cache
