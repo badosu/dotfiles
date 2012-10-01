@@ -78,6 +78,7 @@ myKeys = [
     (         "M-u", spawn "uzbl-tabbed"),
     (       "M-S-u", spawn "firefox"),
     (         "M-v", spawn "urxvt -e vim"),
+    (       "M-S-v", spawn "urxvt -name QuickTerminal -e vim"),
     (         "M-x", spawn "gnome-control-center"),
     (  "M-<Return>", spawn "urxvt -name Terminal"),
     ("M-S-<Return>", spawn "urxvt -name QuickTerminal")
