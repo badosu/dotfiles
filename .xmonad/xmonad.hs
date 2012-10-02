@@ -46,9 +46,9 @@ myStartupHook = do
 
 myManageHook = composeAll [
     className =? "File Operation Progress" --> doCenterFloat,
-    className =? "Skype"                   --> doCenterFloat,
     appName   =? "alsamixer"               --> doCenterFloat,
     appName   =? "QuickTerminal"           --> doCenterFloat,
+    appName   =? "Uzbl WebInspector"       --> doCenterFloat,
     resource  =? "desktop_window"          --> doIgnore,
     className =? "Do"                      --> doIgnore,
     className =? "xmobar"                  --> doIgnore,
@@ -66,7 +66,8 @@ myKeys = [
     (         "M-i", spawn "urxvt -name IRC -e bin/irssi-connect.sh"),
     (         "M-m", spawn "urxvt -e mutt"),
     (       "M-S-m", spawn "urxvt -e mutt -e \"source ~/.mutt/codeminer.account\""),
-    (         "M-n", spawn "nautilus"),
+    (         "M-n", spawn "urxvt -name QuickTerminal -e vifm"),
+    (       "M-S-n", spawn "vifm"),
     (         "M-p", spawn "gnome-do"),
     (      "C-M1-p", spawn "mpc pause"),
     (    "C-M1-S-p", spawn "mpc play"),
@@ -84,14 +85,15 @@ myKeys = [
     ("M-S-<Return>", spawn "urxvt -name QuickTerminal")
   ]
 
-myWorkspaces = ["1:main",
-                "2:alt",
-                "3:web",
-                "4:email",
-                "5:chat",
-                "6:music",
-                "7",
-                "8",
-                "9"]
+myWorkspaces = ["yī",
+                "èr",
+                "sān",
+                "sì",
+                "wǔ",
+                "liù",
+                "qī",
+                "bā",
+                "jiǔ",
+                "shí"]
 
 myBorderSpacing = 3
