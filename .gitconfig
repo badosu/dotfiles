@@ -13,11 +13,9 @@
   ui = true
 [push]
   default = current
-[github]
-  user = amadeusfolego
-  token = ********************************
 [core]
   excludesfile = ~/.gitignore
+	editor = vim
 [branch "master"]
   remote = origin
   merge = master
