@@ -20,17 +20,18 @@
 # DIRECTORY=/Full/Path/To/Base/Directory
 # COLOR=Window_name=foreground_color_number=background_color_number
 
+
 COLORSCHEME=Default
 DIRECTORY=/
 COLOR=MENU=white=black
-COLOR=BORDER=yellow=default
-COLOR=WIN=default=default
-COLOR=STATUS_BAR=default=default
+COLOR=BORDER=yellow=-1
+COLOR=WIN=-1=-1
+COLOR=STATUS_BAR=-1=-1
 COLOR=CURR_LINE=white=green
-COLOR=DIRECTORY=cyan=default
-COLOR=LINK=yellow=default
-COLOR=SOCKET=magenta=default
-COLOR=DEVICE=red=default
-COLOR=EXECUTABLE=green=default
-COLOR=SELECTED=magenta=default
-COLOR=CURRENT=blue=default
+COLOR=DIRECTORY=cyan=-1
+COLOR=LINK=yellow=-1
+COLOR=SOCKET=magenta=-1
+COLOR=DEVICE=red=-1
+COLOR=EXECUTABLE=green=-1
+COLOR=SELECTED=magenta=-1
+COLOR=CURRENT=blue=-1
