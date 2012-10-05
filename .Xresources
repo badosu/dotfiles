@@ -11,6 +11,7 @@ URxvt.depth: 32
 URxvt.scrollBar: off
 URxvt.font: xft:Inconsolata-g:pixelsize=16
 URxvt.colorUL: #86a2be
+Rxvt*loginShell: True
 
 URxvt.perl-ext: default,matcher,url-select,clipboard,keyboard-select
 URxvt.matcher.button: 1
