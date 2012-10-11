@@ -287,26 +287,29 @@ set ebind     = @mode_bind global,-insert
 
 # Web searching binds
 
-@cbind  ;h<Github:>_     = uri           https://github.com/search?q=\@<encodeURIComponent(%r)>\@&type=Everything&repo=&langOverride=&start_value=1
-@cbind  ;H<Github:>_     = event NEW_TAB https://github.com/search?q=\@<encodeURIComponent(%r)>\@&type=Everything&repo=&langOverride=&start_value=1
+@cbind  ;h<Github:>_      = uri           https://github.com/search?q=\@<encodeURIComponent(%r)>\@&type=Everything&repo=&langOverride=&start_value=1
+@cbind  ;H<Github:>_      = event NEW_TAB https://github.com/search?q=\@<encodeURIComponent(%r)>\@&type=Everything&repo=&langOverride=&start_value=1
 
-@cbind  ;g<Google:>_     = uri           http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
-@cbind  ;G<Google:>_     = event NEW_TAB http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
+@cbind  ;m<Grooveshark:>_ = uri           http://html5.grooveshark.com/#/search/\@<encodeURIComponent(%r)>\@
+@cbind  ;M<Grooveshark:>_ = event NEW_TAB http://html5.grooveshark.com/#/search/\@<encodeURIComponent(%r)>\@
 
-@cbind  ;d<DuckDuckGo:>_ = uri           http://duckduckgo.com/?q=%s
-@cbind  ;D<DuckDuckGo:>_ = event NEW_TAB http://duckduckgo.com/?q=%s
+@cbind  ;g<Google:>_      = uri           http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
+@cbind  ;G<Google:>_      = event NEW_TAB http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
 
-@cbind  ;y<Youtube:>_    = uri           https://www.youtube.com/results?search_query=%s
-@cbind  ;Y<Youtube:>_    = event NEW_TAB https://www.youtube.com/results?search_query=%s
+@cbind  ;d<DuckDuckGo:>_  = uri           http://duckduckgo.com/?q=%s
+@cbind  ;D<DuckDuckGo:>_  = event NEW_TAB http://duckduckgo.com/?q=%s
 
-@cbind  ;p<PirateBay:>_  = uri            http://thepiratebay.se/search/%s
-@cbind  ;P<PirateBay:>_  = event NEW_TAB  http://thepiratebay.se/search/%s
+@cbind  ;y<Youtube:>_     = uri           https://www.youtube.com/results?search_query=%s
+@cbind  ;Y<Youtube:>_     = event NEW_TAB https://www.youtube.com/results?search_query=%s
 
-@cbind  ;a<Archwiki:>_   = uri           http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
-@cbind  ;A<Archwiki:>_   = event NEW_TAB http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
+@cbind  ;p<PirateBay:>_   = uri            http://thepiratebay.se/search/%s
+@cbind  ;P<PirateBay:>_   = event NEW_TAB  http://thepiratebay.se/search/%s
 
-@cbind  ;w<Wikipedia:>_  = uri           http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
-@cbind  ;W<Wikipedia:>_  = event NEW_TAB http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
+@cbind  ;a<Archwiki:>_    = uri           http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
+@cbind  ;A<Archwiki:>_    = event NEW_TAB http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
+
+@cbind  ;w<Wikipedia:>_   = uri           http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
+@cbind  ;W<Wikipedia:>_   = event NEW_TAB http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
 
 # Handy binds
 # Set function shortcut
@@ -367,8 +370,10 @@ set ebind     = @mode_bind global,-insert
 @cbind  M  = spawn @scripts_dir/insert_bookmark.sh
 
 # Bookmark/history loading
-@cbind  U  = spawn @scripts_dir/load_url_from_history.sh
-@cbind  u  = spawn @scripts_dir/load_url_from_bookmarks.sh
+@cbind  U  = spawn @scripts_dir/load_url_from_history_tabbed.sh
+@cbind  u  = spawn @scripts_dir/load_url_from_history.sh
+
+@cbind  b  = spawn @scripts_dir/load_url_from_bookmarks.sh
 
 # Temporary bookmarks
 @cbind  <Ctrl>B  = spawn @scripts_dir/insert_temp.sh
@@ -376,11 +381,11 @@ set ebind     = @mode_bind global,-insert
 
 # Link following (similar to vimperator and konqueror)
 # Set custom keys you wish to use for navigation. Some common examples:
-set follow_hint_keys = qwerasdfzxcv1234 # hints always at the reach of the left hand
+#set follow_hint_keys = qwerasdfzxcv1234 # hints always at the reach of the left hand
 #set follow_hint_keys = 0123456789
 #set follow_hint_keys = qwerty
 #set follow_hint_keys = asdfghjkl;
-#set follow_hint_keys = thsnd-rcgmvwb/;789aefijkopquxyz234
+set follow_hint_keys = thsnd-rcgmvwb/;789aefijkopquxyz234
 @cbind  f*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'click') >\@
 @cbind  F*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'newwindow') >\@
 @cbind  fL*  = spawn @scripts_dir/follow.sh \@< uzbl.follow("\@follow_hint_keys", "%s", 'returnuri') >\@ set
