@@ -2,7 +2,7 @@ set editor = "vim"
 auto_view text/html text/enriched application/x-gunzip application/x-tar-gz
 
 set config_charset=utf-8
-set signature="iconv -f utf-8 ~/.signature |"
+#set signature="iconv -f utf-8 ~/.signature |"
 set locale=`echo "${LC_ALL:-${LC_TIME:-${LANG}}}"`
 
 set mail_check = 120
@@ -31,3 +31,5 @@ macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
 macro index,pager a "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 
 set display_filter="sed -e '/\\[-- Autoview using.*--\\]/d'"
+
+set sidebar_visible=no
