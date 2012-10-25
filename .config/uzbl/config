@@ -296,6 +296,9 @@ set ebind     = @mode_bind global,-insert
 @cbind  ;g<Google:>_      = uri           http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
 @cbind  ;G<Google:>_      = event NEW_TAB http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
 
+@cbind  ;r<RubyDoc:>_      = uri           http://ruby-doc.org/search.html?q=\@<encodeURIComponent(%r)>\@
+@cbind  ;R<RubyDoc:>_      = event NEW_TAB http://ruby-doc.org/search.html?q=\@<encodeURIComponent(%r)>\@
+
 @cbind  ;d<DuckDuckGo:>_  = uri           http://duckduckgo.com/?q=%s
 @cbind  ;D<DuckDuckGo:>_  = event NEW_TAB http://duckduckgo.com/?q=%s
 
