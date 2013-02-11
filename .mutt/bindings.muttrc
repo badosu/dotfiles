@@ -1,8 +1,13 @@
+macro index <Esc>m "T~N<enter>;WNT~O<enter>;WO\CT~A<enter>" "mark all messages read"
+
 bind editor <Tab> complete-query
 bind editor ^T complete
 bind editor <space> noop 
 
 # Gmail-style keyboard shortcuts
+set pipe_decode
+macro index,pager X "<pipe-message>cat > /tmp/mutt-tmp.html && uzbl /tmp/mutt-tmp.html<enter>" "Open in firefox"
+macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
 macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
 macro index,pager d "<enter-command>set trash=\"imaps://imap.googlemail.com/[GMail]/Bin\"\n <delete-message>" "Gmail delete message"
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
@@ -227,10 +232,10 @@ macro index,pager gm <sync-mailbox>
   # macro pager D |rot13
 
   # rot13 by Sébastien Michel ?
-  macro pager X "<enter-command>\
-set display_filter = \"tr a-zA-Z n-za-mN-ZA-M\"<enter>\
-<exit><display-message>\
-" "rot13"
+#  macro pager X "<enter-command>\
+#set display_filter = \"tr a-zA-Z n-za-mN-ZA-M\"<enter>\
+#<exit><display-message>\
+#" "rot13"
 
   macro pager <esc>X "\
 <enter-command>unset display_filter<enter>\

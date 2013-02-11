@@ -33,3 +33,5 @@ macro index,pager a "<pipe-message>abook --add-email<return>" "add the sender ad
 set display_filter="sed -e '/\\[-- Autoview using.*--\\]/d'"
 
 set sidebar_visible=no
+
+set pager_index_lines = 5
