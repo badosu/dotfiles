@@ -5,6 +5,7 @@ application/x-gunzip;           gzcat; copiousoutput
 application/x-tar-gz;           gunzip -c %s | tar -tf - ; copiousoutput
 application/postscript;         ps2ascii %s; copiousoutput
 application/pdf;                evince %s
+application/photoshop;          gimp %s
 
 application/msword;             libreoffice %s
 application/vnd.msword;         libreoffice %s
