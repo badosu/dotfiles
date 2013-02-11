@@ -1,4 +1,4 @@
-Config { font = "xft:Anonymous Pro Bold:pixelsize=14"
+Config { font = "xft:Anonymous Pro Normal:pixelsize=14"
        , bgColor = "black"
        , fgColor = "grey"
        , position = Static { xpos = 0 , ypos = 0, width = 1825, height = 18 }
@@ -9,12 +9,14 @@ Config { font = "xft:Anonymous Pro Bold:pixelsize=14"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Battery ["-L","25","-H","75","--normal","gray","--high","blue","--low","red","-t","Batt: <left>%"] 10
                     , Run Swap [] 10
+                    , Run Com "ifconfig" ["wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'"] "ipwlan0" 10
+                    , Run Com "ifconfig" ["eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'"] "ipeth0" 10
                     , Run Com "uname" ["-s","-r"] "" 36000
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run StdinReader
-                    , Run MPD ["-t", "<fc=#555555><state></fc> <artist> - <title> on <album>#<track>"] 10
+                    , Run MPD ["-t", "<fc=#555><statei></fc> <artist> - <title> on <album> #<track> (<lapsed>/<length>)","--", "-P", ">>", "-Z", "|", "-S", "><"] 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %mpd% | %cpu% | %memory% * %swap% | %eth0% %wlan0% | <fc=#ee9a00>%date%</fc> " -- | %battery%"
+       , template = "%StdinReader% }{ %mpd% | %cpu% | %memory% * %swap% | %eth0% %ipeth0% %wlan0% <fc=#00FF00>%ipwlan0%</fc> | <fc=#ee9a00>%date%</fc> " -- | %battery%"
 }
