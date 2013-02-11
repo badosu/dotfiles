@@ -7,9 +7,16 @@ Xft.hinting:    true
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
 
+URxvt.saveLines: 100000
+
 URxvt.depth: 32
 URxvt.scrollBar: off
-URxvt.font: xft:Inconsolata-g:pixelsize=16
+
+URxvt.scrollTtyOutput:      false
+URxvt.scrollWithBuffer:     false
+URxvt.scrollTtyKeypress:    true
+
+URxvt.font: xft:inconsolata-g:pixelsize=16
 URxvt.colorUL: #86a2be
 Rxvt*loginShell: True
 
