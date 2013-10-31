@@ -1,0 +1,28 @@
+[general]
+ui = ttyui
+accounts = Gmail
+
+[Account Gmail]
+localrepository = Gmail-Local
+remoterepository = Gmail-Remote
+maxage=230
+
+[Repository Gmail-Local]
+type = Maildir
+localfolders = ~/Mail/Gmail
+
+[Repository Gmail-Remote]
+maxconnections = 8
+type = Gmail
+remoteuser = amadeusfolego@gmail.com
+remotepass = askpass
+realdelete = no
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = " "
+peritem = "mailboxes /home/Mail/%(accountname)s/%(foldername)s"
+sep = " \n "
+footer = " \n "
