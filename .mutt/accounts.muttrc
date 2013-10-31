@@ -1,10 +1,5 @@
 macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail.account<enter><change-folder>!<enter>'
-macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/codeminer.account<enter><change-folder>!<enter>'
 
 folder-hook 'amadeus.folego@gmail.com' 'source ~/.mutt/gmail.account'
-folder-hook 'amadeus.folego@codeminer42.com' 'source ~/.mutt/codeminer.account'
 
 account-hook imaps://amadeus.folego@gmail.com 'source ~/.mutt/gmail.account'
-account-hook imaps://amadeus.folego@codeminer42.com 'source ~/.mutt/codeminer.account'
-
-source ~/.mutt/gmail.account

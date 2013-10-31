@@ -1,37 +1,66 @@
 set editor = "vim"
 auto_view text/html text/enriched application/x-gunzip application/x-tar-gz
 
-set config_charset=utf-8
-#set signature="iconv -f utf-8 ~/.signature |"
-set locale=`echo "${LC_ALL:-${LC_TIME:-${LANG}}}"`
-
-set mail_check = 120
-set timeout = 300
-set imap_keepalive = 300
-set header_cache=~/.mutt/cache/headers
-set message_cachedir=~/.mutt/cache/bodies
-set certificate_file=~/.mutt/certificates
-set move = no
-set include
-set sort = 'threads'
-set auto_tag = yes
-hdr_order Date From To Cc
-
 source ~/.mutt/bindings.muttrc
 source ~/.mutt/theme.muttrc
 source ~/.mutt/accounts.muttrc
 
-set sendmail="/usr/bin/sendmail -oi -oem"
-
 set send_charset="utf-8"
-set assumed_charset="iso-8859-1"
 
 set query_command = "abook --mutt-query '%s'"
-macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
-macro index,pager a "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 
 set display_filter="sed -e '/\\[-- Autoview using.*--\\]/d'"
 
-set sidebar_visible=no
+unset move           # gmail does that
+set delete           # don't ask, just do
+unset confirmappend  # don't ask, just do!
+set quit             # don't ask, just do!!
+unset mark_old       # read/new is good enough for me
 
-set pager_index_lines = 5
+# sort/threading
+set sort     = threads
+set sort_aux = reverse-last-date-received
+set sort_re
+
+# look and feel
+set pager_index_lines = 8
+set pager_context     = 5
+set pager_stop
+set menu_scroll
+set smart_wrap
+set tilde
+unset markers
+
+# composing 
+set fcc_attach
+unset mime_forward
+set forward_format = "Fwd: %s"
+set include
+set forward_quote
+
+ignore *                               # first, ignore all headers
+unignore from: to: cc: date: subject:  # then, show only these
+hdr_order from: to: cc: date: subject: # and in this order
+
+set sidebar_width=30
+set sidebar_visible=yes
+set sidebar_delim='|'
+set sidebar_sort=yes
+color sidebar_new brightblue black# b toggles sidebar visibility
+macro index b 'toggle sidebar_visible'
+macro pager b 'toggle sidebar_visible'
+
+bind index \CP sidebar-prev
+bind index \CN sidebar-next
+bind index \CO sidebar-open
+bind pager \CP sidebar-prev
+bind pager \CN sidebar-next
+bind pager \CO sidebar-open
+
+# fucking wrong attachments
+set rfc2047_parameters
+
+set index_format="%4C %Z %{%b %d} %-15.15L  %?y?(%.20Y) ?%s"
+
+set edit_headers=yes
+set autoedit=yes

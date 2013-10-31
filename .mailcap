@@ -1,5 +1,6 @@
-text/html;                      w3m -I %{charset} %s; nametemplate=%s.html
-text/html;                      w3m -I %{charset} -dump %s; nametemplate=%s.html; copiousoutput
+text/html;                      firefox %s;
+text/html;                      w3m -I %{charset} -T text/html -dump %s; copiousoutput
+# text/html;                      lynx -display-charset=UTF-8 -dump %s -assume_charset=%{charset}; nametemplate=%s.html; copiousoutput
 image/*;                        eog %s
 application/x-gunzip;           gzcat; copiousoutput
 application/x-tar-gz;           gunzip -c %s | tar -tf - ; copiousoutput
