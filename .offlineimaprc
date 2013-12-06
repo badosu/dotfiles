@@ -1,26 +1,32 @@
 [general]
 ui = ttyui
 accounts = Gmail
+fsync = false
 
 [Account Gmail]
 localrepository = Gmail-Local
 remoterepository = Gmail-Remote
-maxage=230
+maxage=10
+# autorefresh=3
+# quick=10
 
 [Repository Gmail-Local]
 type = Maildir
 localfolders = ~/Mail/Gmail
 
 [Repository Gmail-Remote]
-maxconnections = 8
+# keepalive=60
+# holdconnectionopen=yes
+maxconnections = 3
 type = Gmail
 remoteuser = amadeusfolego@gmail.com
 remotepass = askpass
 realdelete = no
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+folderfilter = lambda foldername: foldername not in ['[Gmail]/Spam','[Gmail]/Lixeira','[Gmail]/Rascunhos','[Gmail]/Todos os e-mails','[Gmail]/Com estrela','[Gmail]/Importante']
 
 [mbnames]
-enabled = yes
+enabled = no
 filename = ~/.mutt/mailboxes
 header = " "
 peritem = "mailboxes /home/Mail/%(accountname)s/%(foldername)s"

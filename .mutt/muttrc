@@ -4,6 +4,7 @@ auto_view text/html text/enriched application/x-gunzip application/x-tar-gz
 source ~/.mutt/bindings.muttrc
 source ~/.mutt/theme.muttrc
 source ~/.mutt/accounts.muttrc
+source ~/.mutt/gmail.account
 
 set send_charset="utf-8"
 
@@ -42,7 +43,7 @@ ignore *                               # first, ignore all headers
 unignore from: to: cc: date: subject:  # then, show only these
 hdr_order from: to: cc: date: subject: # and in this order
 
-set sidebar_width=30
+set sidebar_width=20
 set sidebar_visible=yes
 set sidebar_delim='|'
 set sidebar_sort=yes
@@ -64,3 +65,4 @@ set index_format="%4C %Z %{%b %d} %-15.15L  %?y?(%.20Y) ?%s"
 
 set edit_headers=yes
 set autoedit=yes
+set metoo=yes

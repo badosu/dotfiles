@@ -1,22 +1,20 @@
 Config { font = "xft:Anonymous Pro Normal:pixelsize=14"
-       , bgColor = "black"
+       , bgColor = "#555"
+       , position = Static { xpos = 0, ypos = 0, width = 928, height = 22 }
        , fgColor = "grey"
-       , position = Static { xpos = 0 , ypos = 0, width = 1825, height = 18 }
        , lowerOnStart = False
-       , commands = [ Run Network "eth0" ["-L","0","-H","1000","--normal","gray","--high","red"] 10
-                    , Run Network "wlan0" ["-L","0","-H","1000","--normal","gray","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50","--normal","gray","--high","red"] 10
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","gray","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Battery ["-L","25","-H","75","--normal","gray","--high","blue","--low","red","-t","Batt: <left>%"] 10
-                    , Run Swap [] 10
-                    , Run Com "ifconfig" ["wlan0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'"] "ipwlan0" 10
-                    , Run Com "ifconfig" ["eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'"] "ipeth0" 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Battery ["-L","25","-H","75","--normal","gray","--high","blue","--low","red","-t","⌁ <left>%"] 10
+                    , Run Com "sh" ["-c",  "\"ip a list wlp2s0 | grep 'inet ' | cut -d' ' -f6| cut -d/ -f1\""] "ipwir" 10
+                    , Run Com "sh" ["-c",  "\"ip a list enp1s0 | grep 'inet ' | cut -d' ' -f6| cut -d/ -f1\""] "ipeth" 10
+                    , Run Com "sh" ["-c", "amixer get Master | tail -1 | awk '{print $4}' | sed 's/[^0-9%]//g'"] "vol" 10
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run StdinReader
-                    , Run MPD ["-t", "<fc=#555><statei></fc> <artist> - <title> on <album> #<track> (<lapsed>/<length>)","--", "-P", ">>", "-Z", "|", "-S", "><"] 10
                     ]
        , sepChar = "%"
+
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %mpd% | %cpu% | %memory% * %swap% | %eth0% %ipeth0% %wlan0% <fc=#00FF00>%ipwlan0%</fc> | <fc=#ee9a00>%date%</fc> " -- | %battery%"
+       , template = "%StdinReader% }{ %cpu% | %memory% | enp1s0 <fc=#00FF00>%ipeth%</fc> | wlp2s0 <fc=#00FF00>%ipwir%</fc> | <fc=#ee9a00>%date%</fc> "
+ 
 }

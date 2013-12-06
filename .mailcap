@@ -1,7 +1,7 @@
 text/html;                      firefox %s;
 text/html;                      w3m -I %{charset} -T text/html -dump %s; copiousoutput
 # text/html;                      lynx -display-charset=UTF-8 -dump %s -assume_charset=%{charset}; nametemplate=%s.html; copiousoutput
-image/*;                        eog %s
+image/*;                        sxiv %s
 application/x-gunzip;           gzcat; copiousoutput
 application/x-tar-gz;           gunzip -c %s | tar -tf - ; copiousoutput
 application/postscript;         ps2ascii %s; copiousoutput
@@ -17,5 +17,7 @@ application/x-excel;            libreoffice %s
 application/x-msexcel;          libreoffice %s
 application/ms-Excel;           libreoffice %s
 application/vnd.ms-powerpoint;  libreoffice %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document;  libreoffice %s
+application/vnd.openxmlformats-officedocument.presentationml.presentation;   libreoffice %s
 application/x-mspowerpoint;     libreoffice %s
 application/ppt;                libreoffice %s
