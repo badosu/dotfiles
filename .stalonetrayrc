@@ -1,0 +1,5 @@
+icon_size 22
+window_type dock
+geometry 6x1+928
+window_strut none
+max_geometry 0x24
