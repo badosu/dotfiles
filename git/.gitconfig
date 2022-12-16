@@ -1,0 +1,15 @@
+[user]
+	email = amadeusfolego@gmail.com
+	name = Amadeus Folego
+[push]
+	default = current
+
+[alias]
+	set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+[core]
+	pager = less -FMRiXx4 
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
