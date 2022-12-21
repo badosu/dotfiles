@@ -130,8 +130,6 @@ set('n', '<leader>B',
 
 -- Git Messenger
 set('n', '<leader>m', "<Plug>(git-messenger)", ns)
-set('n', ',t', '<cmd>ToggleTerm<CR>', ns)
-set('n', '<leader>t', '<cmd>ToggleTerm<CR>', ns)
 
 -- incorporate vim-slash without boilerplate
 vim.cmd([[
