@@ -14,13 +14,17 @@ opt.wrap = false
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.softtabstop = 2
+vim.opt.termguicolors = true
+opt.list = true
+vim.opt.listchars:append "tab:▷⋮"
+vim.opt.listchars:append "trail:."
+--vim.opt.list = true
+-- vim.opt.listchars:append "eol:↴"
 opt.updatetime = 200
 opt.splitbelow = true
 opt.splitright = true
 opt.autoindent = true
-opt.expandtab = true
-opt.list = true
-opt.listchars = 'trail:.'
+opt.expandtab = false
 
 -- Better display for messages
 -- opt.hidden = true
@@ -36,7 +40,7 @@ opt.ttimeoutlen = 50
 opt.wrapscan = false
 
 -- set formatoptions-=cro        " disable automatic comments on newline
-opt.shortmess = 'filnxtToOFIscWSC'
+opt.shortmess = 'filnxtToOFIscWC'
 --opt.shortmess = opt.shortmess:append{
 --  f = true,
 --  i = true,
@@ -63,6 +67,7 @@ opt.completeopt = {'menu', 'menuone', 'noselect'}  -- Completion options (for nv
 opt.guifont = 'Iosevka Term:h18'
 opt.pumblend = 8
 opt.winblend = 8
+opt.wrapscan = true
 
 g.neovide_cursor_animation_length = 0
 g.neovide_scroll_animation_length = 0
@@ -70,8 +75,8 @@ g.neovide_hide_mouse_when_typing = true
 g.neovide_floating_blur_amount_x = 2.0
 g.neovide_floating_blur_amount_y = 2.0
 
-g.onedark_terminal_italics = 1
-vim.cmd 'colorscheme onedark'
+--g.onedark_terminal_italics = 1
+--vim.cmd 'colorscheme onedark'
 
 cmd [[set path+=/home/badosu/.local/share/gem/ruby/3.0.0/bin]]
 cmd [[set path+=/home/badosu/perl5/bin]]

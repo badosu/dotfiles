@@ -1,22 +1,27 @@
 local set = vim.api.nvim_set_keymap
 local ns = { noremap = true, silent = true }
-local s = { noremap = true, silent = true }
 local g = vim.g
-
-g.mapleader = ','
 
 -- FZF
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>f', builtin.find_files, s)
-vim.keymap.set('n', '<leader>g', builtin.live_grep, s)
-vim.keymap.set('n', '<leader>s', builtin.treesitter, s)
-vim.keymap.set('n', '<leader>h', builtin.help_tags, s)
-vim.keymap.set('n', '<leader>Q', builtin.quickfix, s)
-vim.keymap.set('n', '<leader>r', builtin.registers, s)
-vim.keymap.set('n', '<leader>R', builtin.resume, s)
-vim.keymap.set('n', '<leader>gb', builtin.git_branches, s)
-vim.keymap.set('n', '<leader>gs', builtin.git_status, s)
-vim.keymap.set('n', '<leader>gt', builtin.git_stash, s)
+vim.keymap.set('n', '<leader>f', builtin.find_files, ns)
+vim.keymap.set('n', '<leader>g', builtin.live_grep, ns)
+vim.keymap.set('n', '<leader>s', builtin.treesitter, ns)
+vim.keymap.set('n', '<leader>S', builtin.lsp_dynamic_workspace_symbols, ns)
+vim.keymap.set('n', '<leader>h', builtin.help_tags, ns)
+vim.keymap.set('n', '<leader>Q', builtin.quickfix, ns)
+vim.keymap.set('n', '<leader>r', builtin.registers, ns)
+vim.keymap.set('n', '<leader>R', builtin.resume, ns)
+vim.keymap.set('n', '<leader>gb', builtin.git_branches, ns)
+vim.keymap.set('n', '<leader>gs', builtin.git_status, ns)
+vim.keymap.set('n', '<leader>gt', builtin.git_stash, ns)
+
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", ns)
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", ns)
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", ns)
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", ns)
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", ns)
+vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", ns)
 
 set('n', '<leader>p',
     ":lua require'telescope'.extensions.project.project{}<CR>",
@@ -125,9 +130,8 @@ set('n', '<leader>B',
 
 -- Git Messenger
 set('n', '<leader>m', "<Plug>(git-messenger)", ns)
-set('n', '<leader>T', '<cmd>ToggleTerm<CR>', ns)
-
-set('n', '<leader>T', '<cmd>ToggleTerm<CR>', ns)
+set('n', ',t', '<cmd>ToggleTerm<CR>', ns)
+set('n', '<leader>t', '<cmd>ToggleTerm<CR>', ns)
 
 -- incorporate vim-slash without boilerplate
 vim.cmd([[

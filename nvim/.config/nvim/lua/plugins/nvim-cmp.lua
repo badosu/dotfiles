@@ -70,18 +70,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require('lspconfig')['solargraph'].setup {
-  capabilities = capabilities
-}
-
-require('lspconfig')['sumneko_lua'].setup {
-  capabilities = capabilities
-}
-
-require('lspconfig')['ccls'].setup {
-  capabilities = capabilities
-}

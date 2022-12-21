@@ -2,19 +2,16 @@
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-require("neodev").setup({
-  -- add any options here, or leave empty to use the default settings
-})
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig')['solargraph'].setup {
+  capabilities = capabilities,
   -- on_attach = on_attach,
-  flags = {
-    -- This will be the default in neovim 0.7+
-    debounce_text_changes = 150,
-  }
 }
 
 require('lspconfig')['ccls'].setup {
+  capabilities = capabilities,
   -- on_attach = on_attach,
   flags = {
     -- This will be the default in neovim 0.7+
@@ -24,13 +21,24 @@ require('lspconfig')['ccls'].setup {
 
 require('lspconfig')['sumneko_lua'].setup {
   -- on_attach = on_attach,
-  flags = {
-    -- This will be the default in neovim 0.7+
-    debounce_text_changes = 150,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'Lua 5.1',
+      },
+      completion = {
+        callSnippet = "Replace"
+      },
+      --misc = {
+      --  parameters = {'--loglevel', 'trace', '--configpath', '/home/badosu/sumnekologs'},
+      --},
+    },
   },
 }
 
 require'lspconfig'.pylsp.setup{
+  capabilities = capabilities,
   settings = {
     pylsp = {
       plugins = {
