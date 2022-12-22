@@ -5,22 +5,15 @@
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig')['solargraph'].setup {
+require('lspconfig').solargraph.setup {
   capabilities = capabilities,
-  -- on_attach = on_attach,
 }
 
-require('lspconfig')['ccls'].setup {
+require('lspconfig').ccls.setup {
   capabilities = capabilities,
-  -- on_attach = on_attach,
-  flags = {
-    -- This will be the default in neovim 0.7+
-    debounce_text_changes = 150,
-  }
 }
 
-require('lspconfig')['sumneko_lua'].setup {
-  -- on_attach = on_attach,
+require('lspconfig').sumneko_lua.setup {
   capabilities = capabilities,
   settings = {
     Lua = {
