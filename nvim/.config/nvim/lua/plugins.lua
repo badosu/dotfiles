@@ -1,5 +1,4 @@
 require("lazy").setup({
-  { "folke/trouble.nvim" },
   { "kyazdani42/nvim-web-devicons" },
   { "tpope/vim-vinegar" },
   { "tpope/vim-unimpaired" },
@@ -8,6 +7,16 @@ require("lazy").setup({
   { "b0o/incline.nvim" },
   { "simnalamburt/vim-mundo" },
   { "kevinhwang91/nvim-bqf" },
+
+  { "folke/trouble.nvim", config = function()
+    local ns = { noremap = true, silent = true }
+    vim.keymap.set("n", "<leader>xx", vim.cmd.TroubleToggle, ns)
+    vim.keymap.set("n", "<leader>xw", function() vim.cmd.TroubleToggle("workspace_diagnostics") end, ns)
+    vim.keymap.set("n", "<leader>xd", function() vim.cmd.TroubleToggle("document_diagnostics") end, ns)
+    vim.keymap.set("n", "<leader>xl", function() vim.cmd.TroubleToggle("loclist") end, ns)
+    vim.keymap.set("n", "<leader>xq", function() vim.cmd.TroubleToggle("quickfix") end, ns)
+    vim.keymap.set("n", "gr",         function() vim.cmd.TroubleToggle("lsp_references") end, ns)
+  end },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -59,15 +68,25 @@ require("lazy").setup({
   { "kdheepak/tabline.nvim", config = function() require('plugins.tabline') end },
 
   { "lewis6991/gitsigns.nvim", config = function() require('plugins.gitsigns') end },
-  { "rhysd/git-messenger.vim", config = function() vim.g.git_messenger_no_default_mappings = true end },
+
+  {
+    "rhysd/git-messenger.vim",
+    config = function()
+      vim.g.git_messenger_no_default_mappings = true
+      vim.api.nvim_set_keymap('n', '<leader>m', "<Plug>(git-messenger)", { noremap = true, silent = true })
+    end
+  },
+
   { "simrat39/symbols-outline.nvim", config = function() require('symbols-outline').setup() end },
   { "nvim-lualine/lualine.nvim", config = function() require('plugins.lualine') end, dependencies = { "folke/noice.nvim" } },
   { "nvim-treesitter/nvim-treesitter", config = function() require('plugins.nvim-treesitter') end, build = function() vim.cmd(":TSUpdate") end },
 
-  { "mfussenegger/nvim-dap", config = function() require('plugins.nvim-dap') end },
+  { "mfussenegger/nvim-dap", config = function() require('plugins.nvim-dap') end, dependencies = { "nvim-telescope/telescope.nvim" } },
   { "theHamsta/nvim-dap-virtual-text", dependencies = { "mfussenegger/nvim-dap" } },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
   { "rcarriga/cmp-dap", dependencies = { "mfussenegger/nvim-dap" } },
 
   { "folke/neodev.nvim", config = function() require("neodev").setup() end },
 })
+
+require('plugins.vim-slash')
