@@ -13,6 +13,3 @@ telescope.setup({
   }
 })
 telescope.load_extension('project')
-
-local ns = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>p', telescope.extensions.project.project, ns)

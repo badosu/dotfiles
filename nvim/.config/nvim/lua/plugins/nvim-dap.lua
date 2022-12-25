@@ -1,4 +1,5 @@
 local dap = require('dap')
+
 dap.adapters.cppdbg = {
   id = 'cppdbg',
   type = 'executable',
@@ -168,25 +169,3 @@ require("dapui").setup({
     max_value_lines = 100, -- Can be integer or nil.
   }
 })
-
-local set = vim.keymap.set
-local ns = { noremap = true, silent = true }
-
-local telescope = require('telescope')
-
-set('n', '<F8>', dap.toggle_breakpoint, ns)
-set('n', '<F10>', dap.step_over, ns)
-set('n', '<F11>', dap.step_into, ns)
-set('n', '<F12>', dap.step_out, ns)
-set('n', '<F5>', function() require('dapui').open(); dap.continue() end, ns)
-set('n', '<F6>', dap.run_last, ns)
-set('n', '<F7>', function() require('dapui').close(); dap.terminate() end, ns)
-set('n', '<leader>dr', dap.repl.open, ns)
-set('n', '<leader>df', function() telescope.extensions.dap.frames() end, ns)
-set('n', '<leader>dd', function() telescope.extensions.dap.commands() end, ns)
-set('n', '<leader>db', function() telescope.extensions.dap.list_breakpoints() end, ns)
-set('n', '<leader>dv', function() telescope.extensions.dap.variables() end, ns)
-set('n', '<leader>b', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end, ns)
-set('n', '<leader>B', function() dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, ns)
-vim.api.nvim_set_keymap('n', 'K', '<cmd>lua if require("dap").session() then require("dapui").eval() else vim.lsp.buf.hover() end<CR>', ns)
-vim.api.nvim_set_keymap('v', 'K', '<cmd>lua require("dapui").eval()<CR>', ns)

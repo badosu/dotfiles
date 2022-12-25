@@ -60,5 +60,3 @@ require("inc_rename").setup({
     if num_files > 1 then qf_populate(entries, "r") end
   end
 })
-
-vim.keymap.set("n", "<leader>rn", function() return ":IncRename " .. vim.fn.expand("<cword>") end, { expr = true })

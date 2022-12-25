@@ -1,7 +1,7 @@
-local set = vim.api.nvim_set_keymap
-local ns = { noremap = true, silent = true }
-local g = vim.g
-local cmd = vim.cmd
+-- local set = vim.api.nvim_set_keymap
+-- local ns = { noremap = true, silent = true }
+-- local g = vim.g
+-- local cmd = vim.cmd
 
 --command! Nextmatch sil norm n
 --nnoremap <silent> n :Nextmatch<cr>"
