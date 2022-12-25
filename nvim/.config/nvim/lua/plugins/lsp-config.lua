@@ -23,6 +23,9 @@ require('lspconfig').sumneko_lua.setup {
       completion = {
         callSnippet = "Replace"
       },
+      workspace = {
+        checkThirdParty = false
+      },
       --misc = {
       --  parameters = {'--loglevel', 'trace', '--configpath', '/home/badosu/sumnekologs'},
       --},

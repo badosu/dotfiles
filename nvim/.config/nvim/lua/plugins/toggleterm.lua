@@ -2,17 +2,16 @@ require("toggleterm").setup({
   open_mapping = ",t",
 })
 
--- vim.keymap.set('t', '<leader>T', ':ToggleTerm direction=float<CR>', opts)
-function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<C-w>h', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-w>j', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-w>k', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-w>l', [[<Cmd>wincmd l<CR>]], opts)
+local termopts = { buffer = 0 }
+local function setWinCmds()
+  vim.keymap.set('t', '<C-w>h', function() vim.cmd.wincmd('h') end, termopts)
+  vim.keymap.set('t', '<C-w>j', function() vim.cmd.wincmd('j') end, termopts)
+  vim.keymap.set('t', '<C-w>k', function() vim.cmd.wincmd('k') end, termopts)
+  vim.keymap.set('t', '<C-w>l', function() vim.cmd.wincmd('l') end, termopts)
 end
 
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+vim.api.nvim_create_autocmd("TermOpen", { callback = setWinCmds })
+-- vim.keymap.set('t', '<leader>T', ':ToggleTerm direction=float<CR>', opts)
 -- ToggleTerm
 --set('n', '<leader>t', ':ToggleTerm direction=float<CR>', ns)
 
