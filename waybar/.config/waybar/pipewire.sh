@@ -16,7 +16,7 @@ while snore $DELAY; do
 
 	if [[ $WP_OUTPUT =~ ^Volume:[[:blank:]]([0-9]+)\.([0-9]{2})([[:blank:]].MUTED.)?$ ]]; then
 		if [[ -n ${BASH_REMATCH[3]} ]]; then
-			printf "MUTE\n"
+			printf "<span size='large'></span>\n"
 		else
 			VOLUME=$((10#${BASH_REMATCH[1]}${BASH_REMATCH[2]}))
 			ICON=(
@@ -25,15 +25,22 @@ while snore $DELAY; do
 				""
 			)
 
-			if [[ $VOLUME -gt 50 ]]; then
-				printf "%s" "${ICON[0]} "
-			elif [[ $VOLUME -gt 25 ]]; then
-				printf "%s" "${ICON[1]} "
-			elif [[ $VOLUME -ge 0 ]]; then
-				printf "%s" "${ICON[2]} "
-			fi
+			# if [[ $VOLUME -gt 50 ]]; then
+			# 	printf "%s" "${ICON[0]} "
+			# elif [[ $VOLUME -gt 25 ]]; then
+			# 	printf "%s" "${ICON[1]} "
+			# elif [[ $VOLUME -ge 0 ]]; then
+			# 	printf "%s" "${ICON[2]} "
+			# fi
 
-			printf "$VOLUME%%\n"
+			# printf "$VOLUME%%\n"
+			if [[ $VOLUME -gt 50 ]]; then
+				printf "<span size='large'>${ICON[0]}</span>\n"
+			elif [[ $VOLUME -gt 25 ]]; then
+				printf "<span size='large'>${ICON[1]}</span>\n"
+			elif [[ $VOLUME -ge 0 ]]; then
+				printf "<span size='large'>${ICON[2]}</span>\n"
+			fi
 		fi
 	fi
 done

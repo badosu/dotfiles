@@ -2,12 +2,12 @@
 
 * {
   border: none;
-  font-size: 16px;
-  margin: 1.0px;
-  padding: 0 2px 0 2px;
-  min-height: 0;
+  font-size: 14px;
   /*font-family: 'Cantarell', 'Font Awesome 5 Free', 'Font Awesome 5 Free Heavy';*/
   font-family: 'Iosevka', 'Font Awesome 5 Free Heavy', "Font Awesome 5 Free";
+}
+.vertical {
+  padding: 0 1px;
 }
 window#waybar {
   background-color: @base;
@@ -16,8 +16,6 @@ window#waybar {
 #window {
   color: @text;
   font-weight: bold;
-  margin: 0px;
-  padding: 0;
 }
 @keyframes fadeIn {
   from {opacity: 0;}
@@ -29,15 +27,13 @@ window#waybar.empty {
 
 #workspaces {
   background-color: @mantle;
-  margin-right: 3px;
-  margin-left: 3px;
   border-radius: 4px;
-  padding: 0 1px 0 1px;
+  min-width: 2.7em;
 }
 
 #workspaces button {
-  margin: 1px;
-  padding: 0px 2px 0px 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 #workspaces button.visible { border: solid 1px; }
@@ -73,19 +69,31 @@ window#waybar.empty {
   color: #ffffff;
 }
 /* WIDGETS */
-#cpu, #custom-pacman, #memory, #backlight, #disk, #network, #pulseaudio, #custom-weather, #temperature, #mpd, #custom-pipewire, #clock, #tray, #custom-vpn {
+#custom-waybar-mpris, #cpu, #custom-pacman, #memory, #backlight, #disk, #network, #pulseaudio, #custom-weather, #temperature, #mpd, #custom-pipewire, #clock, #tray, #custom-vpn {
   background-color: @mantle;
-  padding: 0px 5px 0px 5px;
-  border-right: dotted 1px @surface0;
+  padding: 5px 0px 5px 0px;
+  /* border-right: dotted 1px @surface0; */
   margin: 0;
 }
-#custom-pipewire {
-  border-radius: 4px 0 0 4px;
+
+#clock.min {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+#clock.hour {
+  padding-top: 4px;
+  padding-bottom: 1px;
+}
+
+#custom-waybar-mpris {
+  padding-left: 4px;
+  border-radius: 4px 4px 0 0;
 }
 #tray {
   border-radius: 0 4px 4px 0;
   border-right: 0;
 }
+#tray * { padding: 2px 0; }
 #network {
   color: @mauve;
 }
@@ -106,8 +114,6 @@ window#waybar.empty {
 .custom-spotify-playing {
   color: @pink;
 }
-
-#custom-waybar-mpris { margin-left: 4px; }
 
 #custom-waybar-mpris.paused { color: @overlay0; }
 
@@ -145,7 +151,8 @@ label#window {
 #idle_inhibitor {
   color: @overlay0;
   background-color: transparent;
-  padding: 0px 4px 0px 4px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 #idle_inhibitor.activated { color: @text; }
 
@@ -159,6 +166,16 @@ label#window {
 #disk { color: @sapphire; }
 #memory, #cpu { color: @lavender; }
 #temperature{ color: @teal; }
+
+#taskbar button {
+  border: solid 1px;
+  border-color: transparent;
+  padding: 5px 0;
+}
+
+#taskbar button.active {
+  border-color: white;
+}
 
 #cpu.warning , #temperature.warning , #memory.warning  { background: @yellow; color: @crust; }
 #cpu.critical, #temperature.critical, #memory.critical { background: @red; color: @crust; }

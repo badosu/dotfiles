@@ -1,29 +1,82 @@
+local utils = require('utils')
+local curry = utils.curry
+local requirePlugin = utils.curryPlugin
+local curryRequire = utils.curryRequire
+
 require("lazy").setup({
   { "kyazdani42/nvim-web-devicons", event = { "VeryLazy" } },
-  { "tpope/vim-unimpaired", event = { "VeryLazy" } },
-  { "b0o/incline.nvim", event = { "VeryLazy" } },
-  { "simnalamburt/vim-mundo", event = { "VeryLazy" } },
-  { "kevinhwang91/nvim-bqf", event = { "VeryLazy" } },
-
-  { "tpope/vim-vinegar", lazy = true, keys = { "-" } },
-
+  { "tpope/vim-unimpaired",         event = { "VeryLazy" } },
+  { "b0o/incline.nvim",             event = { "WinEnter" }, config = true },
+  {
+    "simnalamburt/vim-mundo",
+    event = { "VeryLazy" },
+    keys = {
+      { "<leader>um", vim.cmd.MundoToggle, desc = "Undo Tree" }
+    },
+  },
+  { "kevinhwang91/nvim-bqf",         event = { "VeryLazy" } },
+  { "folke/which-key.nvim",          config = true,                          lazy = true },
+  { "tpope/vim-vinegar",             lazy = true,                            keys = { "-" } },
+  { "radenling/vim-dispatch-neovim", dependencies = { "tpope/vim-dispatch" } },
+  {
+    "tpope/vim-rails",
+    dependencies = { "radenling/vim-dispatch-neovim", "tpope/vim-bundler" },
+    config = function()
+      -- disable autocmd set filetype=eruby.yaml
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "eruby.yaml",
+        callback = function() vim.bo.filetype = 'yaml' end
+      })
+    end
+  },
+  {
+    "catppuccin/nvim",
+    config = requirePlugin('catppuccin'),
+    build = ":CatppuccinCompile",
+    priority = 1000, -- make sure to load this before all the other start plugins
+  },
+  { "folke/noice.nvim",          dependencies = { "MunifTanjim/nui.nvim" }, config = requirePlugin('noice') },
+  {
+    "simrat39/symbols-outline.nvim",
+    config = true,
+    cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" }
+  },
+  { "nvim-lualine/lualine.nvim", config = requirePlugin('lualine'),         dependencies = { "folke/noice.nvim" } },
+  { "kdheepak/tabline.nvim",     config = requirePlugin('tabline'),         event = { "BufWinEnter" },            enabled = false },
   {
     "tpope/vim-fugitive",
     cmd = { "G", "Git", "Ggrep", "Gwrite", "Gread", "Gdiffsplit", "GBrowse", "GDelete" },
     dependencies = { "tpope/vim-rhubarb" }
   },
+  {
+    "rhysd/git-messenger.vim",
+    config = function() vim.g.git_messenger_no_default_mappings = true end,
+    lazy = true,
+    keys = { { '<leader>m', "<Plug>(git-messenger)", desc = "Git Float" } }
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = requirePlugin('gitsigns'),
+    event = "BufReadPre"
+  },
+  {
+    "akinsho/toggleterm.nvim",
+    tag = "2.3.0",
+    config = requirePlugin('toggleterm'),
+    keys = {
+      { "<tab>",   desc = "Open terminal (float)" }, { "<C-t>", desc = "Open terminal (vsplit)" },
+      { "<C-S-t>", desc = "Open terminal (new tab)" }, { "<leader>g", vim.cmd.ToggleLazyGit, desc = "Open LazyGit" }
+    }
+  },
 
   {
     "folke/trouble.nvim",
-    keys = {
-      { "<leader>xx", function() vim.cmd.TroubleToggle() end },
-      { "<leader>xw", function() vim.cmd.TroubleToggle("workspace_diagnostics") end },
-      { "<leader>xd", function() vim.cmd.TroubleToggle("document_diagnostics") end },
-      { "<leader>xl", function() vim.cmd.TroubleToggle("loclist") end },
-      { "<leader>xq", function() vim.cmd.TroubleToggle("quickfix") end },
-      { "gr",         function() vim.cmd.TroubleToggle("lsp_references") end },
-    },
     cmd = "TroubleToggle"
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = requirePlugin('nvim-notify'),
+    keys = { { "<leader>fn", curry(vim.cmd.Telescope, "notify"), desc = "Notifications" } }
   },
 
   {
@@ -32,76 +85,67 @@ require("lazy").setup({
     branch = "0.1.x",
     lazy = true,
     keys = {
-      { '<leader>ff', function() require('telescope.builtin').find_files() end },
-      { '<leader>fb', function() require('telescope.builtin').buffers() end },
-      { '<leader>g',  function() require('telescope.builtin').live_grep() end },
-      { '<leader>s',  function() require('telescope.builtin').treesitter() end },
-      { '<leader>S',  function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
-      { '<leader>h',  function() require('telescope.builtin').help_tags() end },
-      { '<leader>Q',  function() require('telescope.builtin').quickfix() end },
-      { '<leader>r',  function() require('telescope.builtin').registers() end },
-      { '<leader>R',  function() require('telescope.builtin').resume() end },
-      { '<leader>gb', function() require('telescope.builtin').git_branches() end },
-      { '<leader>gs', function() require('telescope.builtin').git_status() end },
-      { '<leader>gt', function() require('telescope.builtin').git_stash() end },
+      { '<leader>ff', curryRequire("telescope.builtin", "find_files"), desc = "Files" },
+      { '<leader>fb', curryRequire("telescope.builtin", "buffers"),    desc = "Buffers" },
+      { '<leader>fg', curryRequire("telescope.builtin", "live_grep"),  desc = "Grep" },
+      { '<leader>fs', curryRequire("telescope.builtin", "treesitter"), desc = "Treesitter" },
+      { '<leader>fh', curryRequire("telescope.builtin", "help_tags"),  desc = "Help" },
+      { '<leader>fQ', curryRequire("telescope.builtin", "quickfix"),   desc = "Quickfix" },
+      { '<leader>fr', curryRequire("telescope.builtin", "registers"),  desc = "Registers" },
+      { '<leader>fR', curryRequire("telescope.builtin", "resume"),     desc = "Resume" },
     },
   },
-  { "nvim-telescope/telescope-fzf-native.nvim", dependencies = { "nvim-telescope/telescope.nvim" }, build = "make", config = function() require('telescope').load_extension('fzf') end, event = { "VeryLazy" } },
+
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    build = "make",
+    config = curryRequire("telescope", "load_extension", "fzf"),
+    event = { "BufWinEnter" }
+  },
   {
     "nvim-telescope/telescope-project.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function() require('plugins.telescope-project') end,
+    config = requirePlugin('telescope-project'),
     lazy = true,
     keys = {
-      { '<leader>p', function() require('telescope').extensions.project.project() end }
+      { "<leader>p", curryRequire("telescope", { "extensions", "project", "project" }), desc = "Open Project" }
     }
   },
-
-  { "catppuccin/nvim", config = function() require('plugins.catppuccin') end },
   --"lukas-reineke/indent-blankline.nvim",
 
   {
-    "rcarriga/nvim-notify",
-    config = function()
-      vim.notify = require("notify")
-
-      if vim.g.neovide then
-        vim.notify.setup({
-          background_colour = "#000000",
-        })
-      end
-    end
-  },
-
-  { "folke/noice.nvim", dependencies = { "MunifTanjim/nui.nvim" }, config = function() require('plugins.noice') end },
-
-  { "akinsho/toggleterm.nvim", tag = "2.3.0", config = function() require('plugins.toggleterm') end, keys = { "<leader>t" } },
-
-  {
-    "neovim/nvim-lspconfig",
+    "jose-elias-alvarez/null-ls.nvim",
     config = function() require 'plugins.lsp-config' end,
-    dependencies = { "folke/neodev.nvim" },
-    event = { "VeryLazy" },
-    keys = {
-      { '<leader>e', vim.diagnostic.open_float },
-      { 'gD', vim.lsp.buf.declaration },
-      { 'gd', vim.lsp.buf.definition },
-      { 'gi', vim.lsp.buf.implementation },
-      { '<leader>ca', vim.lsp.buf.code_action },
-      { '<leader>w', vim.lsp.buf.format },
-    }
+    dependencies = { "folke/neodev.nvim", "neovim/nvim-lspconfig" },
+    event = { "BufReadPre" },
   },
-  { "folke/neodev.nvim", config = true, lazy = true },
+  {
+    "ErichDonGubler/lsp_lines.nvim",
+    config = function()
+      vim.diagnostic.config({ virtual_text = false })
+      require("lsp_lines").setup()
+    end,
+    event = { "BufReadPre" },
+  },
 
-  { "L3MON4D3/LuaSnip", lazy = true },
+  { "folke/neodev.nvim", config = true, lazy = true },
+  { "L3MON4D3/LuaSnip",  lazy = true },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
     },
-    config = function() require('plugins.nvim-cmp') end
+    config = requirePlugin('nvim-cmp'),
+    event = { "BufWinEnter" }
   },
+  {
+    "onsails/lspkind.nvim",
+    lazy = true,
+    config = requirePlugin('lspkind')
+  },
+
   {
     "hrsh7th/cmp-cmdline",
     lazy = true,
@@ -113,14 +157,6 @@ require("lazy").setup({
           { name = 'buffer' }
         }
       })
-
-      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
-        sources = cmp.config.sources(
-          { { name = 'path' } },
-          { { name = 'cmdline' } }
-        )
-      })
     end,
   },
 
@@ -130,60 +166,77 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
+      "onsails/lspkind.nvim",
+      "rafamadriz/friendly-snippets",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
     event = { "InsertEnter" },
+    config = requirePlugin('cmp-buffer')
   },
 
   {
     "smjonas/inc-rename.nvim",
-    config = function() require('plugins.increname') end,
-    lazy = true,
-    keys = {
-      { "<leader>rn", function() return ":IncRename " .. vim.fn.expand("<cword>") end, expr = true },
-      { "<leader>rN", function() return ":IncRename " end, expr = true },
-    }
+    config = requirePlugin('increname'),
+    cmd = "IncRename"
   },
-
-  { "kdheepak/tabline.nvim", config = function() require('plugins.tabline') end },
-
-  { "lewis6991/gitsigns.nvim", config = function() require('plugins.gitsigns') end, event = { "VeryLazy" } },
 
   {
-    "rhysd/git-messenger.vim",
-    config = function()
-      vim.g.git_messenger_no_default_mappings = true
-    end,
-    lazy = true,
-    keys = {
-      { '<leader>m', "<Plug>(git-messenger)" }
-    }
+    "nvim-treesitter/nvim-treesitter",
+    config = requirePlugin('nvim-treesitter'),
+    build = ":TSUpdate",
+    event = { "BufReadPost" },
   },
-
-  { "simrat39/symbols-outline.nvim", config = true, lazy = true },
-  { "nvim-lualine/lualine.nvim", config = function() require('plugins.lualine') end, dependencies = { "folke/noice.nvim" } },
-  { "nvim-treesitter/nvim-treesitter", config = function() require('plugins.nvim-treesitter') end, build = vim.cmd.TSUpdate },
 
   {
     "mfussenegger/nvim-dap",
-    config = function() require('plugins.nvim-dap') end,
+    config = requirePlugin('nvim-dap'),
     lazy = true,
     keys = {
-      { '<F8>',  function() require('dap').toggle_breakpoint() end },
-      { '<F10>', function() require('dap').step_over() end },
-      { '<F11>', function() require('dap').step_into() end },
-      { '<F12>', function() require('dap').step_out() end },
-      { '<F5>', function() require('dapui').open(); require('dap').continue() end },
-      { '<F6>', function() require('dap').run_last() end },
-      { '<F7>', function() require('dapui').close(); require('dap').terminate() end },
-      { '<leader>dr', function() require('dap').repl.open() end },
-      { '<leader>dl', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end },
-      { '<leader>dL', function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end },
-      { 'K', function() if require("dap").session() then require("dapui").eval() else vim.lsp.buf.hover() end end },
-      { 'K', function() require("dapui").eval() end, mode = "v" },
+      ---@diagnostic disable-next-line: missing-parameter
+      { 'K',     function() if require("dap").session() then require("dapui").eval() else vim.lsp.buf.hover() end end },
+      ---@diagnostic disable-next-line: missing-parameter
+      {
+        'K',
+        curryRequire("dapui", "eval"),
+        mode =
+        "v"
+      },
+      { '<F10>', curryRequire("dap", "step_over") },
+      { '<F11>', curryRequire("dap", "step_into") },
+      { '<F12>', curryRequire("dap", "step_out") },
+      { '<F5>', function()
+        require('dapui').open({}); require('dap').continue()
+      end },
+      { '<F6>', curryRequire("dap", "run_last") },
+      { '<F7>', function()
+        require('dapui').close({}); require('dap').terminate()
+      end },
+      {
+        '<leader>dr',
+        function() require("dap").repl.open() end,
+        desc =
+        "Open repl"
+      },
+      {
+        '<leader>db',
+        function() require("dap").toggle_breakpoint() end,
+        desc =
+        "Toggle breakpoint"
+      },
+      {
+        '<leader>dl',
+        function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+        desc = "Log Message"
+      },
+      {
+        '<leader>dL',
+        function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
+        desc = "Breakpoint Condition"
+      },
     }
   },
   { "theHamsta/nvim-dap-virtual-text", dependencies = { "mfussenegger/nvim-dap" }, lazy = true },
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" }, lazy = true },
+  { "rcarriga/nvim-dap-ui",            dependencies = { "mfussenegger/nvim-dap" }, lazy = true },
   {
     "rcarriga/cmp-dap",
     dependencies = { "mfussenegger/nvim-dap" },
@@ -199,13 +252,13 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope-dap.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function() require('telescope').load_extension('dap') end,
+    config = curryRequire("telescope", "load_extension", "dap"),
     lazy = true,
     keys = {
-      { '<leader>df', function() require('telescope').extensions.dap.frames() end },
-      { '<leader>dd', function() require('telescope').extensions.dap.commands() end },
-      { '<leader>db', function() require('telescope').extensions.dap.list_breakpoints() end },
-      { '<leader>dv', function() require('telescope').extensions.dap.variables() end },
+      { '<leader>df', curryRequire('telescope', { "extensions", "dap", "frames" }),           desc = "Frames" },
+      { '<leader>dd', curryRequire('telescope', { "extensions", "dap", "commands" }),         desc = "Commands" },
+      { '<leader>dB', curryRequire('telescope', { "extensions", "dap", "list_breakpoints" }), desc = "Breakpoints" },
+      { '<leader>dv', curryRequire('telescope', { "extensions", "dap", "variables" }),        desc = "Variables" },
     }
   },
 })

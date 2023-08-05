@@ -45,6 +45,9 @@ require('gitsigns').setup {
 
     local function map(mode, l, r, opts)
       opts = opts or {}
+      if type(opts) == "string" then
+        opts = { desc = opts }
+      end
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
@@ -63,19 +66,22 @@ require('gitsigns').setup {
     end, {expr=true})
 
     -- Actions
-    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>hS', gs.stage_buffer)
-    map('n', '<leader>hu', gs.undo_stage_hunk)
-    map('n', '<leader>hR', gs.reset_buffer)
-    map('n', '<leader>hp', gs.preview_hunk)
-    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-    map('n', '<leader>tb', gs.toggle_current_line_blame)
-    map('n', '<leader>hd', gs.diffthis)
-    map('n', '<leader>hD', function() gs.diffthis('~') end)
-    map('n', '<leader>td', gs.toggle_deleted)
+    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>', "Stage hunk")
+    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', "Reset hunk")
+    map('n', '<leader>hS', gs.stage_buffer, "Stage buffer")
+    map('n', '<leader>hu', gs.undo_stage_hunk, "Stage hunk (undo)")
+    map('n', '<leader>hR', gs.reset_buffer, "Reset buffer")
+    map('n', '<leader>hp', gs.preview_hunk, "Preview hunk")
+    map('n', '<leader>hb', function() gs.blame_line{full=true} end, "Blame line")
+    map('n', '<leader>hB', gs.toggle_current_line_blame, "Toggle current line blame")
+    map('n', '<leader>hd', gs.diffthis, "Diff this")
+    map('n', '<leader>hD', function() gs.diffthis('~') end, "Diff open")
+    map('n', '<leader>hx', gs.toggle_deleted, "Toggle deleted")
+    map('n', '<leader>hb', function() require('telescope.builtin').git_branches() end, "Branches")
+    map('n', '<leader>hs', function() require('telescope.builtin').git_status() end, "Status")
+    map('n', '<leader>ht', function() require('telescope.builtin').git_stash() end, "Stash")
 
     -- Text object
-    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', "inner hunk")
   end
 }

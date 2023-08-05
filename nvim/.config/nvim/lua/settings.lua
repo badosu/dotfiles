@@ -1,47 +1,48 @@
 local g = vim.g
-local opt = vim.opt
 local cmd = vim.cmd
 local fn = vim.fn
 local env = vim.env
 
-opt.cmdheight = 0
-opt.compatible = false
-opt.mouse = 'a'
-opt.swapfile = false
-opt.number = true
-opt.ignorecase = true
-opt.smartcase = true
-opt.autoread = true
-opt.wrap = false
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.softtabstop = 2
-opt.termguicolors = true
-opt.list = true
-opt.listchars:append "tab:▷⋮"
-opt.listchars:append "trail:."
+vim.opt.compatible = false
+vim.opt.mouse = 'a'
+vim.opt.swapfile = false
+vim.opt.number = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.autoread = true
+vim.opt.wrap = false
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.termguicolors = true
+vim.opt.list = true
+vim.opt.listchars:append "tab:▷⋮"
+vim.opt.listchars:append "trail:."
 -- vim.opt.listchars:append "eol:↴"
-opt.updatetime = 50
-opt.splitbelow = true
-opt.splitright = true
-opt.autoindent = true
-opt.expandtab = false
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.autoindent = true
+vim.opt.expandtab = true
+vim.opt.laststatus = 3
+vim.opt.report = 1000
 
 -- Better display for messages
 -- opt.hidden = true
 
-opt.diffopt = opt.diffopt
-                :append('vertical')
+vim.opt.diffopt = vim.opt.diffopt:append('vertical')
 -- opt.colorcolumn = 100
 
 -- "time waited for key press(es) to complete. It makes for a faster key response
-opt.ttimeout = true
-opt.ttimeoutlen = 50
+vim.opt.ttimeout = true
+vim.opt.timeout = true
+vim.opt.ttimeoutlen = 0
+vim.opt.timeoutlen = 0
 
-opt.wrapscan = false
+vim.opt.wrapscan = false
 
 -- set formatoptions-=cro        " disable automatic comments on newline
-opt.shortmess = 'filnxtToOFIscWC'
+-- vim.opt.shortmess = 'filnxtToOFIscWC'
+vim.o.shortmess = "filnxtToOFIscC"
 --opt.shortmess = opt.shortmess:append{
 --  f = true,
 --  i = true,
@@ -61,16 +62,21 @@ opt.shortmess = 'filnxtToOFIscWC'
 --  C = true, --	  C	don't give messages while scanning for ins-completion items, for instance "scanning tags"
 --}
 
-opt.verbose = 0
+vim.opt.verbose = 0
 -- don't give |ins-completion-menu| messages.
-opt.completeopt = {'menu', 'menuone', 'noselect'}  -- Completion options (for nvim-cmp)
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}  -- Completion options (for nvim-cmp)
+vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
 
-opt.guifont = 'Iosevka Term:h18'
-opt.pumblend = 8
-opt.winblend = 8
-opt.wrapscan = true
-opt.undofile = false
-opt.undodir = '~/.vim/undo'
+vim.opt.guifont = "Iosevka Term 15"
+vim.opt.pumblend = 10
+vim.opt.winblend = 10
+vim.opt.wrapscan = true
+vim.opt.undofile = true
+-- vim.opt.undodir = '~/.local/state/nvim/undo' should be default? I dont see a file there
+if vim.fn.has("nvim-0.8") == 1 then
+  vim.opt.cmdheight = 0
+  vim.opt.backupdir = vim.fn.stdpath("state") .. "/backup"
+end
 
 g.neovide_cursor_animation_length = 0
 g.neovide_scroll_animation_length = 0
@@ -86,3 +92,9 @@ fn.setenv('PERL5LIB', '/home/badosu/perl5/lib/perl5' .. (env.PERL5LIB and ':' ..
 fn.setenv('PERL_LOCAL_LIB_ROOT', '/home/badosu/perl5' .. (env.PERL_LOCAL_LIB_ROOT and ':' .. env.PERL_LOCAL_LIB_ROOT or ''))
 fn.setenv('PERL_MB_OPT', '--install_base \"/home/badosu/perl5\"')
 fn.setenv('PERL_MM_OPT', 'INSTALL_BASE=/home/badosu/perl5')
+
+local signs = { Error = "×", Warn = "", Hint = "💡", Info = "¡" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end

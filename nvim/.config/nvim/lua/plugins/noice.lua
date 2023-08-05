@@ -7,17 +7,21 @@ require("noice").setup({
       ["cmp.entry.get_documentation"] = true,
     },
   },
-  cmdline = {
-    view = "cmdline",
-  },
+  --cmdline = {
+  --  view = "cmdline",
+  --},
   -- you can enable a preset for easier configuration
   presets = {
-  --  bottom_search = true, -- use a classic bottom cmdline for search
-  --  command_palette = true, -- position the cmdline and popupmenu together
-  --  long_message_to_split = true, -- long messages will be sent to a split
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = false, -- long messages will be sent to a split
     inc_rename = true, -- enables an input dialog for inc-rename.nvim
-  --  lsp_doc_border = false, -- add a border to hover docs and signature help
+    --  lsp_doc_border = false, -- add a border to hover docs and signature help
   },
+  -- messages = {
+  --   view = "messages", -- default view for messages, e.g. !ls
+  --   enter = true,
+  -- },
   routes = {
     --{
     --  filter = {
@@ -51,6 +55,78 @@ require("noice").setup({
     -- {
     --   filter = {
     --     event = "msg_show",
+    --     kind = "",
+    --     find = "written$",
+    --   },
+    --   opts = { skip = true },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "line less;",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "more line;",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "fewer lines;",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "more lines;",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "^Already at oldest change",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "^Already at newest change",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = "lines yanked$",
+    --   },
+    -- },
+    -- {
+    --   view = 'notify',
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = "",
+    --     find = " change;",
+    --   },
+    -- },
+    -- {
+    --   filter = {
+    --     event = "msg_show",
     --     kind = "echo",
     --   },
     --   opts = { skip = true },
@@ -69,8 +145,5 @@ require("noice").setup({
     --   },
     --   opts = { skip = true },
     -- },
-      -- "echo"		|:echo| message
-      -- "echomsg"	|:echomsg| message
-      -- "echoerr"	|:echoerr| message
   },
 })

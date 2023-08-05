@@ -8,3 +8,4 @@ export GDK_BACKEND=wayland
 export NEOVIDE_MULTIGRID=false
 export USE_POWERLINE=1
 export BAT_THEME="Catppuccin-mocha"
+export XDG_CURRENT_DESKTOP=sway

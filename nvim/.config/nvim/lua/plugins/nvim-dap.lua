@@ -18,7 +18,7 @@ dap.adapters.codelldb = {
   executable = {
     -- CHANGE THIS to your path!
     command = '/usr/bin/codelldb',
-    args = {"--port", "${port}"},
+    args = { "--port", "${port}" },
 
     -- On windows you may have to uncomment this:
     -- detached = false,
@@ -27,24 +27,41 @@ dap.adapters.codelldb = {
 
 dap.configurations.cpp = {
   {
-    name = "Launch spring",
+    name = "Launch Spring",
     type = "cppdbg",
     request = "launch",
+--    program = '/home/badosu/Code/spring/build-linux-64-RELWITHDEBINFO/install/spring',
     program = '/home/badosu/Code/spring/build-linux-64-DEBUG/install/spring',
+    --program = '/home/badosu/Code/spring/build-dbg-gcc/install/spring',
+    --program = '/home/badosu/Code/spring/build-local-DEBUG/install/spring',
     args = { '--isolation', '--write-dir', '~/engine-write' },
+    -- args = { '--list-unsynced-commands' },
     --args = { '--isolation', '--write-dir', '~/Documents/Beyond All Reason' },
     --args = { '--isolation', '--write-dir', '~/engine-write', '~/Downloads/20221120_214019_SpeedMetal_BAR_V2_105.1.1-1354-g72b2d55_BAR105.sdfz' },
+    environment = {
+      {
+        name = "SDL_VIDEODRIVER",
+        value = "wayland"
+      },
+    },
+    options = {
+      environment = {
+        {
+          name = "SDL_VIDEODRIVER",
+          value = "wayland"
+        },
+      }
+    },
     cwd = '${workspaceFolder}',
     stopAtEntry = false,
     setupCommands = {
       {
         text = '-enable-pretty-printing',
-        description =  'enable pretty printing',
+        description = 'enable pretty printing',
         ignoreFailures = false
       },
     }
-  },
-  {
+  }, {
     name = "Launch file",
     type = "cppdbg",
     request = "launch",
@@ -52,16 +69,33 @@ dap.configurations.cpp = {
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
     cwd = '${workspaceFolder}',
-    stopAtEntry = true,
+    stopAtEntry = false,
     setupCommands = {
       {
         text = '-enable-pretty-printing',
-        description =  'enable pretty printing',
+        description = 'enable pretty printing',
         ignoreFailures = false
       },
     },
-  },
-  {
+  }, {
+    name = 'Launch Spring (lldb)',
+    type = 'lldb',
+    request = 'launch',
+    program = '/home/badosu/Code/spring/build-local-DEBUG-clang/install/spring',
+    args = { '--isolation', '--write-dir', '~/engine-write' },
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  }, {
+    name = 'Launch file (lldb)',
+    type = 'lldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    args = { },
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  }, {
     name = 'Attach to gdbserver :1234',
     type = 'cppdbg',
     request = 'launch',
@@ -75,7 +109,7 @@ dap.configurations.cpp = {
     setupCommands = {
       {
         text = '-enable-pretty-printing',
-        description =  'enable pretty printing',
+        description = 'enable pretty printing',
         ignoreFailures = false
       },
     },
@@ -128,12 +162,12 @@ require("dapui").setup({
     },
     {
       elements = {
-      -- Elements can be strings or table with id and size keys.
-        --{ id = "scopes", size = 0.25 },
-        "scopes",
-        --"breakpoints",
+        -- Elements can be strings or table with id and size keys.
+        { id = "scopes", size = 0.25 },
+        --"scopes",
+        "breakpoints",
         "stacks",
-        --"watches",
+        "watches",
       },
       size = 50,
       position = "left",
@@ -168,4 +202,11 @@ require("dapui").setup({
     max_type_length = nil, -- Can be integer or nil.
     max_value_lines = 100, -- Can be integer or nil.
   }
+})
+
+require('cmp').setup({
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt'
+        or require('cmp_dap').is_dap_buffer()
+  end,
 })

@@ -37,6 +37,7 @@ alias ga='git add'
 alias gb='git branch'
 alias gbb='gc $(gb | fzf)'
 alias g='git status'
+alias be='bundle exec'
 
 export PATH="/home/badosu/.local/share/gem/ruby/3.0.0/bin:$PATH"
 export GEM_HOME="/home/badosu/.local/share/gem/ruby/3.0.0/bundle"
@@ -91,3 +92,11 @@ precmd() {
 
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source /usr/share/nvm/init-nvm.sh
+eval "$(rbenv init -)"
+
+# . /opt/asdf-vm/asdf.sh
+
+export JAVA_HOME=/usr/lib/jvm/default
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jvm/default/lib/server

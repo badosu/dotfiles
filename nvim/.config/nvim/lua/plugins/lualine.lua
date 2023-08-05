@@ -1,5 +1,5 @@
 require("lualine").setup({
-  extensions = {'quickfix','fugitive','man','mundo','nvim-dap-ui','quickfix','symbols-outline','toggleterm'},
+  extensions = { 'quickfix', 'fugitive', 'man', 'mundo', 'nvim-dap-ui', 'quickfix', 'symbols-outline', 'toggleterm' },
   sections = {
     lualine_x = {
       --{
@@ -7,7 +7,7 @@ require("lualine").setup({
       --  cond = require("noice").api.status.message.has,
       --},
       --{'encoding', 'fileformat', 'filetype'},
-      {'filetype'},
+      { 'filetype' },
       {
         require("noice").api.status.command.get,
         cond = require("noice").api.status.command.has,
