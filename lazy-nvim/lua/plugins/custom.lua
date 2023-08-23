@@ -103,14 +103,10 @@ return {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    opts = function()
+    opts = function(_, opts)
       local nls = require("null-ls")
 
-      return {
-        sources = {
-          nls.builtins.formatting.erb_format,
-        },
-      }
+      table.insert(opts.sources, nls.builtins.formatting.erb_format)
     end,
   },
 
