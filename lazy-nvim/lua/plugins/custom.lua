@@ -8,7 +8,7 @@ return {
         desc = "Open parent directory",
       },
     },
-    opts = {},
+    config = true,
   },
   {
     "telescope.nvim",
@@ -67,13 +67,42 @@ return {
   {
     "abecodes/tabout.nvim",
     event = "VeryLazy",
-    opts = ""
+    config = true,
   },
   {
     "L3MON4D3/LuaSnip",
     -- stylua: ignore
     keys = function()
       return {}
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    opts = function(_, opts)
+      require("mason-lspconfig").setup(opts)
+
+      require("mason-lspconfig").setup_handlers({
+        -- The first entry (without a key) will be the default handler
+        -- and will be called for each installed server that doesn't have
+        -- a dedicated handler.
+        function(server_name) -- default handler (optional)
+          require("lspconfig")[server_name].setup({})
+        end,
+        -- Next, you can provide targeted overrides for specific servers.
+        -- For example, a handler override for the rust_analyzer:
+        ["solargraph"] = function()
+          require("lspconfig").solargraph.setup({
+            cmd = { "~/.asdf/shims/bundle", "exec", "solargraph", "stdio" },
+            settings = {
+              solargraph = {
+                useBundler = true,
+                bundlerPath = "~/.asdf/shims/bundle",
+                checkGemVersion = false,
+              },
+            },
+          })
+        end,
+      })
     end,
   },
   {
@@ -90,7 +119,7 @@ return {
           return luasnip.jumpable(-1) and luasnip.jump(-1) or fallback()
         end, { "i", "s" }),
       })
-    end
+    end,
   },
   {
     "radenling/vim-dispatch-neovim",
@@ -108,6 +137,24 @@ return {
 
       table.insert(opts.sources, nls.builtins.formatting.erb_format)
     end,
+  },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim", -- optional
+    },
+    config = true,
+  },
+  {
+    "pwntester/octo.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = true,
   },
 
   -- {
