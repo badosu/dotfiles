@@ -1,3 +1,5 @@
+local Util = require("lazyvim.util")
+
 return {
   {
     "stevearc/oil.nvim",
@@ -5,20 +7,33 @@ return {
       {
         "-",
         "<cmd>Oil<cr>",
-        desc = "Open parent directory",
+        desc = "Explore parent directory",
       },
     },
     config = true,
   },
   {
     "telescope.nvim",
-    dependencies = {
+    -- dependencies = {
+    --   {
+    --     "nvim-telescope/telescope-fzf-native.nvim",
+    --     build = "make",
+    --     config = function()
+    --       require("telescope").load_extension("fzf")
+    --     end,
+    --   },
+    -- },
+    keys = {
       {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        config = function()
-          require("telescope").load_extension("fzf")
+        "<leader>sG",
+        function()
+          vim.ui.input({ completion = "file", prompt = "Enter file or folder" }, function(input)
+            if input ~= nil then
+              Util.telescope("live_grep", { cwd = input })()
+            end
+          end)
         end,
+        desc = "Grep (ask dir)",
       },
     },
     opts = {
@@ -28,35 +43,6 @@ return {
             ["<c-t>"] = "select_tab",
           },
         },
-      },
-    },
-  },
-  {
-    "nvim-neotest/neotest",
-    optional = true,
-    dependencies = {
-      "olimorris/neotest-rspec",
-    },
-    opts = {
-      adapters = {
-        ["neotest-rspec"] = {
-          rspec_cmd = function()
-            return vim.tbl_flatten({
-              "bundle",
-              "exec",
-              "rspec",
-            })
-          end,
-        },
-      },
-    },
-    keys = {
-      {
-        "<leader>ta",
-        function()
-          require("neotest").run.attach()
-        end,
-        desc = "Attach",
       },
     },
   },
@@ -74,35 +60,6 @@ return {
     -- stylua: ignore
     keys = function()
       return {}
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = function(_, opts)
-      require("mason-lspconfig").setup(opts)
-
-      require("mason-lspconfig").setup_handlers({
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function(server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup({})
-        end,
-        -- Next, you can provide targeted overrides for specific servers.
-        -- For example, a handler override for the rust_analyzer:
-        ["solargraph"] = function()
-          require("lspconfig").solargraph.setup({
-            cmd = { "~/.asdf/shims/bundle", "exec", "solargraph", "stdio" },
-            settings = {
-              solargraph = {
-                useBundler = true,
-                bundlerPath = "~/.asdf/shims/bundle",
-                checkGemVersion = false,
-              },
-            },
-          })
-        end,
-      })
     end,
   },
   {
@@ -131,12 +88,19 @@ return {
     event = "VeryLazy",
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-
-      table.insert(opts.sources, nls.builtins.formatting.erb_format)
-    end,
+    "sindrets/diffview.nvim",
+    keys = {
+      {
+        "<leader>gt",
+        "<cmd>DiffviewToggleFiles<cr>",
+        desc = "Toggle Diff Files Panel",
+      },
+      {
+        "<leader>gd",
+        "<cmd>DiffviewOpen<cr>",
+        desc = "Open Diff View",
+      },
+    },
   },
   {
     "NeogitOrg/neogit",
@@ -144,6 +108,18 @@ return {
       "nvim-lua/plenary.nvim", -- required
       "nvim-telescope/telescope.nvim", -- optional
       "sindrets/diffview.nvim", -- optional
+    },
+    keys = {
+      {
+        "<leader>gS",
+        "<cmd>Neogit<cr>",
+        desc = "Neogit status",
+      },
+      {
+        "<leader>gm",
+        "<cmd>NeogitMessages<cr>",
+        desc = "Neogit Messages",
+      },
     },
     config = true,
   },
@@ -156,62 +132,4 @@ return {
     },
     config = true,
   },
-
-  -- {
-  --   "mfussenegger/nvim-dap",
-  --   config = function()
-  --     local Config = require("lazyvim.config")
-  --     vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-
-  --     for name, sign in pairs(Config.icons.dap) do
-  --       sign = type(sign) == "table" and sign or { sign }
-  --       vim.fn.sign_define(
-  --         "Dap" .. name,
-  --         { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-  --       )
-  --     end
-
-  --     local dap = require("dap")
-
-  --     dap.adapters.ruby = function(callback, config)
-  --       local script
-
-  --       if config.current_line then
-  --         script = config.script .. ":" .. vim.fn.line(".")
-  --       else
-  --         script = config.script
-  --       end
-
-  --       callback({
-  --         type = "server",
-  --         host = "127.0.0.1",
-  --         port = "${port}",
-  --         executable = {
-  --           command = "bundle",
-  --           args = { "exec", "rdbg", "--open", "--port", "${port}", "-c", "--", config.command, script },
-  --         },
-  --       })
-  --     end
-
-  --     dap.configurations.ruby = {
-  --       {
-  --         type = "ruby",
-  --         name = "debug rspec current_line",
-  --         request = "attach",
-  --         localfs = true,
-  --         command = "bin/rspec",
-  --         script = "${file}",
-  --         current_line = true,
-  --       },
-  --       {
-  --         type = "ruby",
-  --         name = "debug current file",
-  --         request = "attach",
-  --         localfs = true,
-  --         command = "ruby",
-  --         script = "${file}",
-  --       },
-  --     }
-  --   end,
-  -- },
 }
