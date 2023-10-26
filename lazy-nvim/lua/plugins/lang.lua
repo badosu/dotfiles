@@ -8,6 +8,32 @@ return {
     end,
   },
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      -- opts.highlight = vim.tbl_extend("force", opts.highlight or {}, {
+      --   cond = function(lang, bufnr) -- Disable in large C++ buffers
+      --     return not (lang == "lua") -- and vim.api.nvim_buf_line_count(bufnr) > 1000)
+      --   end,
+      -- })
+
+      highlight = {
+        disable = function(lang, buf)
+          if lang ~= "lua" then
+            return false
+          end
+
+          return vim.api.nvim_buf_line_count(buf) > 1000
+
+          -- local max_filesize = 50 * 1024 -- 50 KB
+          -- local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          -- if ok and stats and stats.size > max_filesize then
+          --   return true
+          -- end
+        end,
+      },
+    },
+  },
+  {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {
