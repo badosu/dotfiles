@@ -13,6 +13,24 @@ return {
     config = true,
   },
   {
+    "debugloop/telescope-undo.nvim",
+    dependencies = {
+      {
+        "telescope.nvim",
+      },
+    },
+    keys = {
+      {
+        "<leader>su",
+        "<cmd>Telescope undo<cr>",
+        desc = "Search undo tree",
+      },
+    },
+    config = function()
+      require("telescope").load_extension("undo")
+    end,
+  },
+  {
     "telescope.nvim",
     -- dependencies = {
     --   {
@@ -38,6 +56,11 @@ return {
     },
     opts = {
       defaults = {
+        preview = {
+          treesitter = {
+            disable = { "lua" },
+          },
+        },
         mappings = {
           i = {
             ["<c-t>"] = "select_tab",
