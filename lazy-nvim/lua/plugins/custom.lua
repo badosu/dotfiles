@@ -147,6 +147,55 @@ return {
     config = true,
   },
   -- {
+  --   "mfussenegger/nvim-dap",
+  --   config = function()
+  --     local dap = require("dap")
+
+  --     dap.adapters.mix_task = {
+  --       type = "executable",
+  --       command = "/home/badosu/.local/share/nvim/mason/bin/elixir-ls-debugger",
+  --       args = {},
+  --     }
+
+  --     dap.configurations.elixir = {
+  --       {
+  --         type = "mix_task",
+  --         name = "phx.server",
+  --         request = "launch",
+  --         task = "phx.server",
+  --         projectDir = "${workspaceFolder}",
+  --       },
+  --       {
+  --         type = "mix_task",
+  --         name = "mix test",
+  --         task = "test",
+  --         taskArgs = { "--trace" },
+  --         request = "launch",
+  --         startApps = true, -- for Phoenix projects
+  --         projectDir = "${workspaceFolder}",
+  --         requireFiles = {
+  --           "test/**/test_helper.exs",
+  --           "test/**/*_test.exs",
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+  {
+    "ahmedkhalf/project.nvim",
+    keys = {
+      {
+        "<leader>p",
+        "<cmd>Telescope projects<cr>",
+        desc = "Search projects",
+      },
+    },
+    opts = function(_, opts)
+      opts.patterns = { "mix.exs", "Gemfile" }
+      vim.list_extend(opts.patterns, require("project_nvim.config").defaults.patterns)
+    end,
+  },
+  -- {
   --   "pwntester/octo.nvim",
   --   dependencies = {
   --     "nvim-lua/plenary.nvim",

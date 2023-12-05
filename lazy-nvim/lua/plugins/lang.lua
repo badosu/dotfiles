@@ -73,44 +73,59 @@ return {
     },
   },
   {
+    "elixir-tools/elixir-tools.nvim",
+    version = "*",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local elixir = require("elixir")
+
+      local lsp_capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require("cmp_nvim_lsp").default_capabilities()
+      )
+
+      elixir.setup({
+        credo = { enable = false }, -- already handled by nextls
+        elixirls = { enable = false },
+        nextls = {
+          enable = true,
+          -- port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
+          -- cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
+          init_options = {
+            mix_env = "dev",
+            mix_target = "host",
+            experimental = {
+              completions = {
+                enable = true, -- control if completions are enabled. defaults to false
+              },
+            },
+          },
+          capabilities = lsp_capabilities,
+          -- on_attach = function(client, bufnr)
+          --   vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+          --   vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+          --   vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+          -- end,
+        },
+      })
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+  {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       for i, server in ipairs(opts.ensure_installed) do
         if server == "solargraph" then
           table.remove(opts.ensure_installed, i)
+        end
 
-          break
+        if server == "elixir-ls" then
+          table.remove(opts.ensure_installed, i)
         end
       end
     end,
   },
-  --{
-  --  "williamboman/mason-lspconfig.nvim",
-  --  opts = function(_, opts)
-  --    require("mason-lspconfig").setup(opts)
-
-  --    require("mason-lspconfig").setup_handlers({
-  --      -- The first entry (without a key) will be the default handler
-  --      -- and will be called for each installed server that doesn't have
-  --      -- a dedicated handler.
-  --      function(server_name) -- default handler (optional)
-  --        require("lspconfig")[server_name].setup({})
-  --      end,
-  --      -- Next, you can provide targeted overrides for specific servers.
-  --      -- For example, a handler override for the rust_analyzer:
-  --      ["solargraph"] = function()
-  --        require("lspconfig").solargraph.setup({
-  --          cmd = { "~/.asdf/shims/bundle", "exec", "solargraph", "stdio" },
-  --          settings = {
-  --            solargraph = {
-  --              useBundler = true,
-  --              bundlerPath = "~/.asdf/shims/bundle",
-  --              checkGemVersion = false,
-  --            },
-  --          },
-  --        })
-  --      end,
-  --    })
-  --  end,
-  --},
 }
