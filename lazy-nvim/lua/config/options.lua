@@ -6,6 +6,7 @@ vim.opt.clipboard = "unnamed"
 vim.opt.relativenumber = false
 vim.opt.undofile = true
 vim.opt.swapfile = false
+vim.g.editorconfig = true
 
 vim.cmd([[
 " Enable Mouse
