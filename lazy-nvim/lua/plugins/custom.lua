@@ -195,6 +195,17 @@ return {
       vim.list_extend(opts.patterns, require("project_nvim.config").defaults.patterns)
     end,
   },
+  {
+    "rebelot/terminal.nvim",
+    keys = {
+      {
+        "\\t",
+        "<cmd>TermToggle<cr>",
+        desc = "Toggle terminal panel",
+      },
+    },
+    config = true,
+  },
   -- {
   --   "pwntester/octo.nvim",
   --   dependencies = {

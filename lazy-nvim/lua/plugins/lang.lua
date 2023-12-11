@@ -84,14 +84,35 @@ return {
         vim.lsp.protocol.make_client_capabilities(),
         require("cmp_nvim_lsp").default_capabilities()
       )
+      local elixirls = require("elixir.elixirls")
 
       elixir.setup({
-        credo = { enable = false }, -- already handled by nextls
-        elixirls = { enable = false },
-        nextls = {
+        credo = { enable = true }, -- already handled by nextls
+        elixirls = {
           enable = true,
+          settings = elixirls.settings({
+            dialyzerEnabled = false,
+            enableTestLenses = false,
+          }),
+          -- root_dir = require("lspconfig.util").root_pattern("mix.exs"),
+          -- root_dir = "~/Code/edge/checkout/",
+          on_attach = function()
+            vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+            vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+            vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+          end,
+        },
+        nextls = {
+          enable = false,
           -- port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
           -- cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
+          --   root_dir = function(fname)
+          --     local util = require("lspconfig.util")
+
+          --     vim.print("hauehuaehueahu ???")
+
+          --     return util.root_pattern("mix.exs")(fname) or util.find_git_ancestor(fname) or vim.loop.os_homedir()
+          --   end,
           init_options = {
             mix_env = "dev",
             mix_target = "host",
@@ -126,6 +147,13 @@ return {
           table.remove(opts.ensure_installed, i)
         end
       end
+    end,
+  },
+  {
+    "mhanberg/output-panel.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("output_panel").setup()
     end,
   },
 }

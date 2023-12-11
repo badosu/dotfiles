@@ -8,6 +8,10 @@ vim.opt.undofile = true
 vim.opt.swapfile = false
 vim.g.editorconfig = true
 
+---@type LazyRootSpec[]
+vim.g.root_spec = { { ".git", "mix.exs", "Gemfile", "lua" }, "lsp", "cwd" }
+-- vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+
 vim.cmd([[
 " Enable Mouse
 set mouse=a
