@@ -56,6 +56,7 @@ return {
     },
     opts = {
       defaults = {
+        winblend = 40,
         preview = {
           treesitter = {
             disable = { "lua" },

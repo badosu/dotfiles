@@ -66,75 +66,159 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        -- tailwindcss = {
+        --   -- filetypes_include = { "eruby", "html-heex", "heex", "elixir", "eelixir" },
+        -- },
         solargraph = {
           mason = false, -- set to false if you don't want this server to be installed with mason
         },
-      },
-    },
-  },
-  {
-    "elixir-tools/elixir-tools.nvim",
-    version = "*",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local elixir = require("elixir")
-
-      local lsp_capabilities = vim.tbl_deep_extend(
-        "force",
-        vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities()
-      )
-      local elixirls = require("elixir.elixirls")
-
-      elixir.setup({
-        credo = { enable = true }, -- already handled by nextls
         elixirls = {
-          enable = true,
-          settings = elixirls.settings({
-            dialyzerEnabled = false,
-            enableTestLenses = false,
-          }),
-          -- root_dir = require("lspconfig.util").root_pattern("mix.exs"),
-          -- root_dir = "~/Code/edge/checkout/",
-          on_attach = function()
-            vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-            vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-            vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-          end,
+          mason = false, -- set to false if you don't want this server to be installed with mason
         },
-        nextls = {
-          enable = false,
-          -- port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
-          -- cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
-          --   root_dir = function(fname)
-          --     local util = require("lspconfig.util")
+      },
+      setup = {
+        tailwindcss = function(_, opts)
+          local util = require("lspconfig.util")
 
-          --     vim.print("hauehuaehueahu ???")
+          opts.filetypes = { "html", "elixir", "eelixir", "heex" }
 
-          --     return util.root_pattern("mix.exs")(fname) or util.find_git_ancestor(fname) or vim.loop.os_homedir()
-          --   end,
-          init_options = {
-            mix_env = "dev",
-            mix_target = "host",
-            experimental = {
-              completions = {
-                enable = true, -- control if completions are enabled. defaults to false
+          opts.init_options = {
+            userLanguages = {
+              elixir = "html-eex",
+              eelixir = "html-eex",
+              heex = "html-eex",
+            },
+          }
+          opts.settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  'class[:]\\s*"([^"]*)"',
+                },
               },
             },
-          },
-          capabilities = lsp_capabilities,
-          -- on_attach = function(client, bufnr)
-          --   vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-          --   vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-          --   vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-          -- end,
-        },
-      })
-    end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
+          }
+
+          opts.root_dir = function(fname)
+            return util.root_pattern(
+              "tailwind.config.js",
+              "tailwind.config.cjs",
+              "tailwind.config.mjs",
+              "tailwind.config.ts",
+              "postcss.config.js",
+              "postcss.config.cjs",
+              "postcss.config.mjs",
+              "postcss.config.ts",
+              "mix.exs",
+              "Gemfile"
+            )(fname) or util.find_package_json_ancestor(fname) or util.find_node_modules_ancestor(fname) or util.find_git_ancestor(
+              fname
+            )
+          end
+
+          -- opts.settings = {
+          --   includeLanguages = {
+          --     typescript = "javascript",
+          --     typescriptreact = "javascript",
+          --     ["html-eex"] = "html",
+          --     ["phoenix-heex"] = "html",
+          --     heex = "html",
+          --     eelixir = "html",
+          --     elixir = "html",
+          --     elm = "html",
+          --     erb = "html",
+          --     svelte = "html",
+          --     rust = "html",
+          --   },
+          --   tailwindCSS = {
+          --     lint = {
+          --       cssConflict = "warning",
+          --       invalidApply = "error",
+          --       invalidConfigPath = "error",
+          --       invalidScreen = "error",
+          --       invalidTailwindDirective = "error",
+          --       invalidVariant = "error",
+          --       recommendedVariantOrder = "warning",
+          --     },
+          --     experimental = {
+          --       classRegex = {
+          --         [[class= "([^"]*)]],
+          --         [[class: "([^"]*)]],
+          --         '~H""".*class="([^"]*)".*"""',
+          --         '~F""".*class="([^"]*)".*"""',
+          --       },
+          --     },
+          --     validate = true,
+          --   },
+          -- }
+        end,
+      },
     },
+    --   opts.servers.solargraph.mason = false -- set to false if you don't want this server to be installed with mason
   },
+  -- {
+  --   "elixir-tools/elixir-tools.nvim",
+  --   version = "*",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   config = function()
+  --     local elixir = require("elixir")
+
+  --     local lsp_capabilities = vim.tbl_deep_extend(
+  --       "force",
+  --       vim.lsp.protocol.make_client_capabilities(),
+  --       require("cmp_nvim_lsp").default_capabilities()
+  --     )
+  --     local elixirls = require("elixir.elixirls")
+
+  --     elixir.setup({
+  --       credo = { enable = true }, -- already handled by nextls
+  --       elixirls = {
+  --         enable = true,
+  --         settings = elixirls.settings({
+  --           dialyzerEnabled = false,
+  --           enableTestLenses = false,
+  --         }),
+  --         -- root_dir = require("lspconfig.util").root_pattern("mix.exs"),
+  --         -- root_dir = "~/Code/edge/checkout/",
+  --         on_attach = function()
+  --           vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+  --           vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+  --           vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+  --         end,
+  --       },
+  --       nextls = {
+  --         enable = false,
+  --         -- port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
+  --         -- cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
+  --         --   root_dir = function(fname)
+  --         --     local util = require("lspconfig.util")
+
+  --         --     vim.print("hauehuaehueahu ???")
+
+  --         --     return util.root_pattern("mix.exs")(fname) or util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  --         --   end,
+  --         init_options = {
+  --           mix_env = "dev",
+  --           mix_target = "host",
+  --           experimental = {
+  --             completions = {
+  --               enable = true, -- control if completions are enabled. defaults to false
+  --             },
+  --           },
+  --         },
+  --         capabilities = lsp_capabilities,
+  --         -- on_attach = function(client, bufnr)
+  --         --   vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+  --         --   vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+  --         --   vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+  --         -- end,
+  --       },
+  --     })
+  --   end,
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  -- },
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
