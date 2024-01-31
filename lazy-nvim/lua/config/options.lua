@@ -10,6 +10,8 @@ vim.g.editorconfig = true
 
 vim.o.winblend = 40
 
+vim.g.neovide_transparency = 0.95
+
 vim.g.neovide_floating_blur = true
 vim.g.neovide_floating_opacity = 0
 vim.g.neovide_floating_blur_amount_x = 2.5
@@ -24,9 +26,9 @@ vim.g.neovide_light_radius = 5
 vim.g.root_spec = { { ".git", "mix.exs", "Gemfile", "lua" }, "lsp", "cwd" }
 -- vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
-vim.cmd([[
-" Enable Mouse
-set mouse=a
+if vim.fn.has("gui_running") then
+  -- vim.cmd("set guifont=JetBrainsMono\\ NFM:h10")
+  vim.opt.guifont = "FiraCode Nerd Font Mono:h18"
+end
 
-set guifont=monospace:h18
-]])
+vim.opt.mouse = "a"

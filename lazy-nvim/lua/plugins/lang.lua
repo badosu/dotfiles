@@ -66,38 +66,48 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        -- tailwindcss = {
-        --   -- filetypes_include = { "eruby", "html-heex", "heex", "elixir", "eelixir" },
-        -- },
         solargraph = {
           mason = false, -- set to false if you don't want this server to be installed with mason
         },
+        ---@type lspconfig.options.elixirls
         elixirls = {
-          mason = false, -- set to false if you don't want this server to be installed with mason
+          -- mason = false, -- set to false if you don't want this server to be installed with mason
+          settings = {
+            elixirLS = {
+              autoInsertRequiredAlias = false, -- default is true
+            },
+          },
         },
       },
       setup = {
         tailwindcss = function(_, opts)
           local util = require("lspconfig.util")
 
-          opts.filetypes = { "html", "elixir", "eelixir", "heex" }
+          opts.filetypes = { "html", "elixir", "eelixir", "heex", "eruby" }
 
           opts.init_options = {
             userLanguages = {
               elixir = "html-eex",
               eelixir = "html-eex",
               heex = "html-eex",
+              eruby = "erb",
             },
           }
-          opts.settings = {
-            tailwindCSS = {
-              experimental = {
-                classRegex = {
-                  'class[:]\\s*"([^"]*)"',
-                },
-              },
-            },
-          }
+          -- opts.settings = {
+          --   tailwindCSS = {
+          --     experimental = {
+          --       -- classRegex = {
+          --       --   'class[:]\\s*"([^"]*)"',
+          --       -- },
+          --       -- classRegex = {
+          --       --   [[class= "([^"]*)]],
+          --       --   [[class: "([^"]*)]],
+          --       --   '~H""".*class="([^"]*)".*"""',
+          --       --   '~F""".*class="([^"]*)".*"""',
+          --       -- },
+          --     },
+          --   },
+          -- }
 
           opts.root_dir = function(fname)
             return util.root_pattern(
@@ -115,42 +125,6 @@ return {
               fname
             )
           end
-
-          -- opts.settings = {
-          --   includeLanguages = {
-          --     typescript = "javascript",
-          --     typescriptreact = "javascript",
-          --     ["html-eex"] = "html",
-          --     ["phoenix-heex"] = "html",
-          --     heex = "html",
-          --     eelixir = "html",
-          --     elixir = "html",
-          --     elm = "html",
-          --     erb = "html",
-          --     svelte = "html",
-          --     rust = "html",
-          --   },
-          --   tailwindCSS = {
-          --     lint = {
-          --       cssConflict = "warning",
-          --       invalidApply = "error",
-          --       invalidConfigPath = "error",
-          --       invalidScreen = "error",
-          --       invalidTailwindDirective = "error",
-          --       invalidVariant = "error",
-          --       recommendedVariantOrder = "warning",
-          --     },
-          --     experimental = {
-          --       classRegex = {
-          --         [[class= "([^"]*)]],
-          --         [[class: "([^"]*)]],
-          --         '~H""".*class="([^"]*)".*"""',
-          --         '~F""".*class="([^"]*)".*"""',
-          --       },
-          --     },
-          --     validate = true,
-          --   },
-          -- }
         end,
       },
     },
@@ -227,9 +201,9 @@ return {
           table.remove(opts.ensure_installed, i)
         end
 
-        if server == "elixir-ls" then
-          table.remove(opts.ensure_installed, i)
-        end
+        -- if server == "elixir-ls" then
+        --   table.remove(opts.ensure_installed, i)
+        -- end
       end
     end,
   },

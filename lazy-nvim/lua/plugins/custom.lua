@@ -2,6 +2,14 @@ local Util = require("lazyvim.util")
 
 return {
   {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
+  {
     "stevearc/oil.nvim",
     keys = {
       {
@@ -83,6 +91,7 @@ return {
     "L3MON4D3/LuaSnip",
     -- stylua: ignore
     keys = function()
+      -- so that tabout can work
       return {}
     end,
   },
@@ -93,23 +102,26 @@ return {
       local cmp = require("cmp")
 
       opts.mapping = vim.tbl_extend("force", opts.mapping or {}, {
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          return luasnip.jumpable(1) and luasnip.jump(1) or fallback()
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          return luasnip.jumpable(-1) and luasnip.jump(-1) or fallback()
-        end, { "i", "s" }),
+        ["<Tab>"] = function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+          else
+            fallback()
+          end
+        end,
+        ["<S-Tab>"] = function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+          else
+            fallback()
+          end
+        end,
       })
     end,
-  },
-  {
-    "radenling/vim-dispatch-neovim",
-    dependencies = { "tpope/vim-dispatch" },
-    event = "VeryLazy",
-  },
-  {
-    "tpope/vim-bundler",
-    event = "VeryLazy",
   },
   {
     "sindrets/diffview.nvim",
@@ -135,7 +147,7 @@ return {
     },
     keys = {
       {
-        "<leader>gS",
+        "<leader>gg",
         "<cmd>Neogit<cr>",
         desc = "Neogit status",
       },
@@ -206,6 +218,27 @@ return {
       },
     },
     config = true,
+  },
+  { "tiagovla/scope.nvim", config = true },
+  {
+    "echasnovski/mini.comment",
+    opts = {
+      -- Module mappings. Use `''` (empty string) to disable one.
+      mappings = {
+        -- Toggle comment (like `gcip` - comment inner paragraph) for both
+        -- Normal and Visual modes
+        comment = "<leader>ccx",
+
+        -- Toggle comment on current line
+        comment_line = "<leader>ccc",
+
+        -- Toggle comment on visual selection
+        comment_visual = "<leader>cc",
+
+        -- Define 'comment' textobject (like `dgc` - delete whole comment block)
+        -- textobject = "gc",
+      },
+    },
   },
   -- {
   --   "pwntester/octo.nvim",
