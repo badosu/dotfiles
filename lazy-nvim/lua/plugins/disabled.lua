@@ -8,7 +8,7 @@ return {
     enabled = false,
   },
   {
-    "catppuccin/catppuccin",
+    "catppuccin/nvim",
     enabled = false,
   },
   {
@@ -17,6 +17,10 @@ return {
   },
   {
     "echasnovski/mini.indentscope",
+    enabled = false,
+  },
+  {
+    "folke/flash.nvim",
     enabled = false,
   },
 }

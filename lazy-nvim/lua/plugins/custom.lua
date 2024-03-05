@@ -159,6 +159,14 @@ return {
     },
     config = true,
   },
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    -- stylua: ignore
+    keys = {
+      { "<leader>td", function() require("neotest").run.run({strategy = "integrated"}) end, desc = "Debug Nearest 1" },
+    },
+  },
   -- {
   --   "mfussenegger/nvim-dap",
   --   config = function()

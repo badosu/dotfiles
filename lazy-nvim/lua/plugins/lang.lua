@@ -1,10 +1,18 @@
+---@diagnostic disable: inject-field
 return {
   {
     "stevearc/conform.nvim",
+    ---@param opts conform.FileFormatterConfig
     opts = function(_, opts)
       opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
         eruby = { "erb_format" },
       })
+      opts.formatters = {
+        erb_format = {
+          args = { "--single-class-per-line", "--stdin" },
+          -- args = { "--stdin" },
+        },
+      }
     end,
   },
   {
@@ -73,6 +81,7 @@ return {
         elixirls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
+            ---@diagnostic disable-next-line: missing-fields
             elixirLS = {
               autoInsertRequiredAlias = false, -- default is true
             },
@@ -80,6 +89,13 @@ return {
         },
       },
       setup = {
+        -- we use eslint for formatting instead
+        tsserver = function(_, opts)
+          opts.on_attach = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+        end,
         tailwindcss = function(_, opts)
           local util = require("lspconfig.util")
 
@@ -128,7 +144,6 @@ return {
         end,
       },
     },
-    --   opts.servers.solargraph.mason = false -- set to false if you don't want this server to be installed with mason
   },
   -- {
   --   "elixir-tools/elixir-tools.nvim",
