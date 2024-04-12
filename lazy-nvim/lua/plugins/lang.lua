@@ -7,12 +7,12 @@ return {
       opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
         eruby = { "erb_format" },
       })
-      opts.formatters = {
+      opts.formatters = vim.tbl_extend("force", opts.formatters or {}, {
         erb_format = {
           args = { "--single-class-per-line", "--stdin" },
           -- args = { "--stdin" },
         },
-      }
+      })
     end,
   },
   {
@@ -99,16 +99,16 @@ return {
         tailwindcss = function(_, opts)
           local util = require("lspconfig.util")
 
-          opts.filetypes = { "html", "elixir", "eelixir", "heex", "eruby" }
+          -- opts.filetypes = { "html", "elixir", "eelixir", "heex", "eruby" }
 
-          opts.init_options = {
-            userLanguages = {
-              elixir = "html-eex",
-              eelixir = "html-eex",
-              heex = "html-eex",
-              eruby = "erb",
-            },
-          }
+          -- opts.init_options = {
+          --   userLanguages = {
+          --     elixir = "html-eex",
+          --     eelixir = "html-eex",
+          --     heex = "html-eex",
+          --     eruby = "erb",
+          --   },
+          -- }
           -- opts.settings = {
           --   tailwindCSS = {
           --     experimental = {

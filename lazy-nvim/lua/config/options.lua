@@ -10,6 +10,7 @@ vim.g.editorconfig = true
 
 vim.o.winblend = 40
 
+vim.g.neovide_window_blurred = true
 vim.g.neovide_transparency = 0.95
 
 vim.g.neovide_floating_blur = true
@@ -28,7 +29,7 @@ vim.g.root_spec = { { ".git", "mix.exs", "Gemfile", "lua" }, "lsp", "cwd" }
 
 if vim.fn.has("gui_running") then
   -- vim.cmd("set guifont=JetBrainsMono\\ NFM:h10")
-  vim.opt.guifont = "FiraCode Nerd Font Mono:h18"
+  vim.opt.guifont = "FiraCode Nerd Font Mono:h16"
 end
 
 vim.opt.mouse = "a"
