@@ -1,6 +1,25 @@
 local Util = require("lazyvim.util")
 
 return {
+  -- {
+  --   "m4xshen/hardtime.nvim",
+  --   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+  --   opts = {
+  --     restricted_keys = {
+  --       ["-"] = {},
+  --     },
+  --     disabled_filetypes = {
+  --       "qf",
+  --       "netrw",
+  --       "NvimTree",
+  --       "lazy",
+  --       "mason",
+  --       "oil",
+  --       "neotest-summary",
+  --       "neotest-output-panel",
+  --     },
+  --   },
+  -- },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -84,29 +103,70 @@ return {
   },
   {
     "abecodes/tabout.nvim",
-    event = "VeryLazy",
-    config = true,
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    -- stylua: ignore
-    keys = function()
-      -- so that tabout can work
-      return {}
+    lazy = false,
+    config = function()
+      require("tabout").setup({
+        tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
+        backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+        act_as_tab = true, -- shift content if tab out is not possible
+        act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+        default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+        default_shift_tab = "<C-d>", -- reverse shift default action,
+        enable_backwards = true, -- well ...
+        completion = false, -- if the tabkey is used in a completion pum
+        tabouts = {
+          { open = "'", close = "'" },
+          { open = '"', close = '"' },
+          { open = "`", close = "`" },
+          { open = "(", close = ")" },
+          { open = "[", close = "]" },
+          { open = "{", close = "}" },
+        },
+        ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+        exclude = {}, -- tabout will ignore these filetypes
+      })
     end,
+    dependencies = { -- These are optional
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp",
+    },
+    opt = true, -- Set this to true if the plugin is optional
+    event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
+    priority = 1000,
   },
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
-      local luasnip = require("luasnip")
       local cmp = require("cmp")
+
+      opts.enabled = function()
+        local disabled = false
+        disabled = disabled or (vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt")
+        disabled = disabled or (vim.fn.reg_recording() ~= "")
+        disabled = disabled or (vim.fn.reg_executing() ~= "")
+
+        if disabled then
+          return false
+        end
+
+        -- keep command mode completion enabled
+        if vim.api.nvim_get_mode().mode == "c" then
+          return true
+        else
+          -- disable completion inside strings
+          local context = require("cmp.config.context")
+          return not context.in_treesitter_capture("string") and not context.in_syntax_group("String")
+        end
+      end
 
       opts.mapping = vim.tbl_extend("force", opts.mapping or {}, {
         ["<Tab>"] = function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+          elseif vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
           else
             fallback()
           end
@@ -114,8 +174,10 @@ return {
         ["<S-Tab>"] = function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+          elseif vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
           else
             fallback()
           end
@@ -135,6 +197,21 @@ return {
         "<leader>gd",
         "<cmd>DiffviewOpen<cr>",
         desc = "Open Diff View",
+      },
+    },
+    opts = {
+      view = {
+        merge_tool = {
+          --  'diff1_plain'
+          --    |'diff2_horizontal'
+          --    |'diff2_vertical'
+          --    |'diff3_horizontal'
+          --    |'diff3_vertical'
+          --    |'diff3_mixed'
+          --    |'diff4_mixed'
+          -- For more info, see ':h diffview-config-view.x.layout'.
+          layout = "diff3_horizontal",
+        },
       },
     },
   },
@@ -162,9 +239,15 @@ return {
   {
     "mfussenegger/nvim-dap",
     optional = true,
+    enabled = false,
     -- stylua: ignore
     keys = {
-      { "<leader>td", function() require("neotest").run.run({strategy = "integrated"}) end, desc = "Debug Nearest 1" },
+      { "<leader>td",
+        function()
+          require("neotest").run.run({strategy = "integrated", suite = false})
+        end,
+        desc = "Debug Nearest 1"
+      },
     },
   },
   -- {

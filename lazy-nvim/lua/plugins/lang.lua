@@ -41,23 +41,26 @@ return {
       },
     },
   },
+
   {
     "nvim-neotest/neotest",
     optional = true,
     dependencies = {
       "olimorris/neotest-rspec",
+      "jfpedroza/neotest-elixir",
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
     opts = {
       adapters = {
         ["neotest-rspec"] = {
           rspec_cmd = function()
-            return vim.tbl_flatten({
-              "bundle",
-              "exec",
-              "rspec",
-            })
+            return vim.iter({ "bundle", "exec", "rspec" }):flatten()
           end,
         },
+        ["neotest-elixir"] = {},
       },
     },
     keys = {
@@ -77,16 +80,17 @@ return {
         solargraph = {
           mason = false, -- set to false if you don't want this server to be installed with mason
         },
-        ---@type lspconfig.options.elixirls
-        elixirls = {
-          -- mason = false, -- set to false if you don't want this server to be installed with mason
-          settings = {
-            ---@diagnostic disable-next-line: missing-fields
-            elixirLS = {
-              autoInsertRequiredAlias = false, -- default is true
-            },
-          },
-        },
+        -- ---@type lspconfig.options.elixirls
+        -- ---@diagnostic disable-next-line: missing-fields
+        -- elixirls = {
+        --   mason = false, -- set to false if you don't want this server to be installed with mason
+        --   -- settings = {
+        --   --   ---@diagnostic disable-next-line: missing-fields
+        --   --   elixirLS = {
+        --   --     autoInsertRequiredAlias = false, -- default is true
+        --   --   },
+        --   -- },
+        -- },
       },
       setup = {
         -- we use eslint for formatting instead
@@ -145,69 +149,35 @@ return {
       },
     },
   },
-  -- {
-  --   "elixir-tools/elixir-tools.nvim",
-  --   version = "*",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   config = function()
-  --     local elixir = require("elixir")
+  --{
+  --  "elixir-tools/elixir-tools.nvim",
+  --  version = "*",
+  --  event = { "BufReadPre", "BufNewFile" },
+  --  config = function()
+  --    local elixir = require("elixir")
+  --    local elixirls = require("elixir.elixirls")
 
-  --     local lsp_capabilities = vim.tbl_deep_extend(
-  --       "force",
-  --       vim.lsp.protocol.make_client_capabilities(),
-  --       require("cmp_nvim_lsp").default_capabilities()
-  --     )
-  --     local elixirls = require("elixir.elixirls")
-
-  --     elixir.setup({
-  --       credo = { enable = true }, -- already handled by nextls
-  --       elixirls = {
-  --         enable = true,
-  --         settings = elixirls.settings({
-  --           dialyzerEnabled = false,
-  --           enableTestLenses = false,
-  --         }),
-  --         -- root_dir = require("lspconfig.util").root_pattern("mix.exs"),
-  --         -- root_dir = "~/Code/edge/checkout/",
-  --         on_attach = function()
-  --           vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-  --           vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-  --           vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-  --         end,
-  --       },
-  --       nextls = {
-  --         enable = false,
-  --         -- port = 9000, -- connect via TCP with the given port. mutually exclusive with `cmd`. defaults to nil
-  --         -- cmd = "path/to/next-ls", -- path to the executable. mutually exclusive with `port`
-  --         --   root_dir = function(fname)
-  --         --     local util = require("lspconfig.util")
-
-  --         --     vim.print("hauehuaehueahu ???")
-
-  --         --     return util.root_pattern("mix.exs")(fname) or util.find_git_ancestor(fname) or vim.loop.os_homedir()
-  --         --   end,
-  --         init_options = {
-  --           mix_env = "dev",
-  --           mix_target = "host",
-  --           experimental = {
-  --             completions = {
-  --               enable = true, -- control if completions are enabled. defaults to false
-  --             },
-  --           },
-  --         },
-  --         capabilities = lsp_capabilities,
-  --         -- on_attach = function(client, bufnr)
-  --         --   vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-  --         --   vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-  --         --   vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-  --         -- end,
-  --       },
-  --     })
-  --   end,
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --   },
-  -- },
+  --    elixir.setup({
+  --      nextls = { enable = true },
+  --      credo = { enable = false },
+  --      elixirls = {
+  --        enable = false,
+  --        settings = elixirls.settings({
+  --          dialyzerEnabled = false,
+  --          enableTestLenses = true,
+  --        }),
+  --        on_attach = function(_client, _bufnr)
+  --          vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+  --          vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+  --          vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+  --        end,
+  --      },
+  --    })
+  --  end,
+  --  dependencies = {
+  --    "nvim-lua/plenary.nvim",
+  --  },
+  --},
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
@@ -216,9 +186,9 @@ return {
           table.remove(opts.ensure_installed, i)
         end
 
-        -- if server == "elixir-ls" then
-        --   table.remove(opts.ensure_installed, i)
-        -- end
+        if server == "elixir-ls" then
+          table.remove(opts.ensure_installed, i)
+        end
       end
     end,
   },

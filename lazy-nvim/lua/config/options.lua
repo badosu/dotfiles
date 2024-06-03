@@ -8,6 +8,9 @@ vim.opt.undofile = true
 vim.opt.swapfile = false
 vim.g.editorconfig = true
 
+-- Lazy stuff
+vim.g.deprecation_warnings = true
+
 vim.o.winblend = 40
 
 vim.g.neovide_window_blurred = true
@@ -15,8 +18,8 @@ vim.g.neovide_transparency = 0.95
 
 vim.g.neovide_floating_blur = true
 vim.g.neovide_floating_opacity = 0
-vim.g.neovide_floating_blur_amount_x = 2.5
-vim.g.neovide_floating_blur_amount_y = 2.5
+vim.g.neovide_floating_blur_amount_x = 3
+vim.g.neovide_floating_blur_amount_y = 3
 
 vim.g.neovide_floating_shadow = true
 vim.g.neovide_floating_z_height = 10
