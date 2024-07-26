@@ -1,8 +1,6 @@
----@diagnostic disable: inject-field
 return {
   {
     "stevearc/conform.nvim",
-    ---@param opts conform.FileFormatterConfig
     opts = function(_, opts)
       opts.formatters_by_ft = vim.tbl_extend("force", opts.formatters_by_ft or {}, {
         eruby = { "erb_format" },
@@ -82,17 +80,21 @@ return {
         },
         -- ---@type lspconfig.options.elixirls
         -- ---@diagnostic disable-next-line: missing-fields
-        -- elixirls = {
-        --   mason = false, -- set to false if you don't want this server to be installed with mason
-        --   -- settings = {
-        --   --   ---@diagnostic disable-next-line: missing-fields
-        --   --   elixirLS = {
-        --   --     autoInsertRequiredAlias = false, -- default is true
-        --   --   },
-        --   -- },
-        -- },
+        --  mason = false, -- set to false if you don't want this server to be installed with mason
+        --  -- settings = {
+        --  --   ---@diagnostic disable-next-line: missing-fields
+        --  --   elixirLS = {
+        --  --     autoInsertRequiredAlias = false, -- default is true
+        --  --   },
+        --  -- },
+        --},
       },
       setup = {
+        typst_lsp = function(_, opts)
+          opts.settings = {
+            exportPdf = "onSave", -- Choose onType, onSave or never.
+          }
+        end,
         -- we use eslint for formatting instead
         tsserver = function(_, opts)
           opts.on_attach = function(client)
@@ -183,10 +185,6 @@ return {
     opts = function(_, opts)
       for i, server in ipairs(opts.ensure_installed) do
         if server == "solargraph" then
-          table.remove(opts.ensure_installed, i)
-        end
-
-        if server == "elixir-ls" then
           table.remove(opts.ensure_installed, i)
         end
       end
