@@ -105,31 +105,65 @@ return {
         tailwindcss = function(_, opts)
           local util = require("lspconfig.util")
 
-          -- opts.filetypes = { "html", "elixir", "eelixir", "heex", "eruby" }
+          opts.filetypes = {
+            "css",
+            "scss",
+            "sass",
+            "html",
+            "heex",
+            "elixir",
+            "eelixir",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "svelte",
+          }
 
-          -- opts.init_options = {
-          --   userLanguages = {
-          --     elixir = "html-eex",
-          --     eelixir = "html-eex",
-          --     heex = "html-eex",
-          --     eruby = "erb",
-          --   },
-          -- }
-          -- opts.settings = {
-          --   tailwindCSS = {
-          --     experimental = {
-          --       -- classRegex = {
-          --       --   'class[:]\\s*"([^"]*)"',
-          --       -- },
-          --       -- classRegex = {
-          --       --   [[class= "([^"]*)]],
-          --       --   [[class: "([^"]*)]],
-          --       --   '~H""".*class="([^"]*)".*"""',
-          --       --   '~F""".*class="([^"]*)".*"""',
-          --       -- },
-          --     },
-          --   },
-          -- }
+          opts.init_options = {
+            userLanguages = {
+              elixir = "phoenix-heex",
+              eelixir = "phoenix-heex",
+              heex = "phoenix-heex",
+              eruby = "erb",
+              svelte = "html",
+              rust = "html",
+            },
+          }
+          opts.settings = {
+            -- includeLanguages = {
+            --   typescript = "javascript",
+            --   typescriptreact = "javascript",
+            --   ["html-eex"] = "html",
+            --   ["phoenix-heex"] = "html",
+            --   heex = "html",
+            --   eelixir = "html",
+            --   elixir = "html",
+            --   elm = "html",
+            --   erb = "html",
+            --   svelte = "html",
+            --   rust = "html",
+            -- },
+            tailwindCSS = {
+              includeLanguages = {
+                elixir = "phoenix-heex",
+                eelixir = "phoenix-heex",
+                heex = "phoenix-heex",
+              },
+              experimental = {
+                -- classRegex = {
+                --   'class[:]\\s*"([^"]*)"',
+                -- },
+                classRegex = {
+                  [[class= "([^"]*)]],
+                  [[class: "([^"]*)]],
+                  '~H""".*class="([^"]*)".*"""',
+                  '~F""".*class="([^"]*)".*"""',
+                },
+              },
+            },
+          }
+          --
 
           opts.root_dir = function(fname)
             return util.root_pattern(

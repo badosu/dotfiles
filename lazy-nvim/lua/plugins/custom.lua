@@ -65,7 +65,7 @@ return {
         function()
           vim.ui.input({ completion = "file", prompt = "Enter file or folder" }, function(input)
             if input ~= nil then
-              Util.telescope("live_grep", { cwd = input })()
+              Util.pick.telescope("live_grep", { cwd = input })()
             end
           end)
         end,
