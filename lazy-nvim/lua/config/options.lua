@@ -8,6 +8,8 @@ vim.opt.undofile = true
 vim.opt.swapfile = false
 vim.g.editorconfig = true
 
+vim.g.snacks_animate = false
+
 -- Lazy stuff
 vim.g.deprecation_warnings = true
 
